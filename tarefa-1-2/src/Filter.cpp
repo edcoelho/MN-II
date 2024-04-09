@@ -1,12 +1,12 @@
 #include <math.h>
 #include "Filter.hpp"
 
-metII::Filter::Filter(metII::image image, metII::kernel3 kernel)
-{
+metII::Filter::Filter (metII::image image, metII::kernel3 kernel) {
 
     this->original_image = image;
     this->current_image = image;
     this->kernel = kernel;
+
 }
 
 void metII::Filter::set_kernel (metII::kernel3 k) {
