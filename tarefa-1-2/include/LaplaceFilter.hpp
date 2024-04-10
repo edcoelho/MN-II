@@ -9,7 +9,7 @@ namespace metII {
 
         public:
 
-            LaplaceFilter (metII::image image = metII::image());
+            LaplaceFilter ();
 
     };
 

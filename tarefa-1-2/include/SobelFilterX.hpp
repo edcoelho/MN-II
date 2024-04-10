@@ -9,7 +9,7 @@ namespace metII {
 
         public:
 
-            SobelFilterX (metII::image image = metII::image());
+            SobelFilterX ();
 
     };
 

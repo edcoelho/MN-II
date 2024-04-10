@@ -9,32 +9,20 @@ namespace metII {
 
         private:
 
-            metII::image original_image;
-            metII::image current_image;
             metII::kernel3 kernel;
 
         public:
 
-            Filter (metII::image image = metII::image(), metII::kernel3 kernel = metII::kernel3());
+            Filter (metII::kernel3 kernel = metII::kernel3());
 
             void set_kernel (metII::kernel3 k);
             metII::kernel3 const& get_kernel () const;
 
-            metII::image get_original_image () const;
+            // Apply correlation to a image.
+            metII::image correlation (const metII::image img);
 
-            metII::image get_current_image () const;
-
-            // Set the original and current images.
-            void set_image (metII::image i);
-
-            // Apply correlation to the current image.
-            void correlation ();
-
-            // Apply convolution to the current image.
-            void convolution ();
-
-            // Discard changes in the current image.
-            void revert_image ();
+            // Apply convolution to a image.
+            metII::image convolution (const metII::image img);
 
     };
 

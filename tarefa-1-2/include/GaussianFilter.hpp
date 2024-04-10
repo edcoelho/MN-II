@@ -9,7 +9,7 @@ namespace metII {
 
         public:
 
-            GaussianFilter (metII::image image = metII::image());
+            GaussianFilter ();
 
     };
 
