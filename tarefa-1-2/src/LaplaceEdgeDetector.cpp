@@ -29,7 +29,7 @@ void metII::LaplaceEdgeDetector::detect () {
     img = gauss_filter.convolution(img); 
 
     metII::GrayscaleImage A = laplace_filter.correlation(img);
-    A.normalize_scale(0.1f, -0.1f);
+    A.normalize_scale(-0.1f, 0.1f);
 
     std::size_t i, j;
     for (i = 0; i < A.get_height(); i++) {

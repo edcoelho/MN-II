@@ -1,4 +1,5 @@
 #include "GrayscaleImage.hpp"
+#include <cmath>
 
 metII::GrayscaleImage::GrayscaleImage (std::size_t height, std::size_t width) {
 
@@ -56,35 +57,37 @@ std::size_t metII::GrayscaleImage::get_height () const {
 
 }
 
-void metII::GrayscaleImage::normalize_scale (float max, float min) {
+void metII::GrayscaleImage::normalize_scale (float min, float max) {
 
     float actual_max, actual_min;
     std::size_t i, j;
 
-    // Find the maximum and minimum pixels values of the image.
     if (this->get_height() > 0 && this->get_width() > 0) {
 
-        actual_max = this->operator()(0, 0);
-        actual_min = this->operator()(0, 0);
+        actual_max = std::abs(this->operator()(0, 0));
 
-    }
-    for (i = 0; i < this->get_height(); i++) {
+        // Find the maximum and minimum pixels absolute values of the image.
+        for (i = 0; i < this->get_height(); i++) {
 
-        for (j = 0; j < this->get_width(); j++) {
+            for (j = 0; j < this->get_width(); j++) {
 
-            if (this->operator()(i, j) > actual_max) actual_max = this->operator()(i, j);
-            if (this->operator()(i, j) < actual_min) actual_min = this->operator()(i, j);
+                if (std::abs(this->operator()(i, j)) > actual_max)
+                    actual_max = std::abs(this->operator()(i, j));
+
+            }
 
         }
 
-    }
+        actual_min = -1.0f * actual_max;
 
-    // Normalize pixels values.
-    for (i = 0; i < this->get_height(); i++) {
+        // Normalize pixels values.
+        for (i = 0; i < this->get_height(); i++) {
 
-        for (j = 0; j < this->get_width(); j++) {
+            for (j = 0; j < this->get_width(); j++) {
 
-            this->operator()(i, j) = (this->operator()(i, j) - actual_min) * (max - min) / (actual_max - actual_min) + min;
+                this->operator()(i, j) = (this->operator()(i, j) - actual_min) * (max - min) / (actual_max - actual_min) + min;
+
+            }
 
         }
 

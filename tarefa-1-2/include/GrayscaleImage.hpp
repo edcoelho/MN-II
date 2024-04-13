@@ -24,7 +24,7 @@ namespace metII {
             std::size_t get_width () const;
             std::size_t get_height () const;
 
-            void normalize_scale (float max = 1.0f, float min = 0.0f);
+            void normalize_scale (float min = 0.0f, float max = 1.0f);
 
     };
 
