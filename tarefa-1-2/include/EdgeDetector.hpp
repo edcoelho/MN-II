@@ -9,16 +9,16 @@ namespace metII {
 
         private:
 
-            float threshold;
             metII::GrayscaleImage original_image;
             metII::GrayscaleImage current_image;
 
+        protected:
+
+            void set_current_image (metII::GrayscaleImage i);
+
         public:
 
-            EdgeDetector (float threshold = 0.5f, metII::GrayscaleImage img = metII::GrayscaleImage());
-
-            float get_threshold ();
-            void set_threshold (float threshold);
+            EdgeDetector (metII::GrayscaleImage img = metII::GrayscaleImage());
 
             metII::GrayscaleImage get_original_image () const;
 
@@ -30,11 +30,8 @@ namespace metII {
             // Discard changes in the current image.
             void revert_image ();
 
-            // Apply gradient edge detector to the current image.
-            void gradient ();
-
-            // Apply laplacian edge detector to the current image.
-            void laplace ();
+            // Apply the edge detector to the current image.
+            virtual void detect () = 0;
 
     };
 
