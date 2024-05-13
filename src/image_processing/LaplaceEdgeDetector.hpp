@@ -1,7 +1,7 @@
-#ifndef LAPLACEEDGEDETECTOR_HPP_
-#define LAPLACEEDGEDETECTOR_HPP_
+#ifndef IMAGE_PROCESSING_LAPLACEEDGEDETECTOR_HPP_
+#define IMAGE_PROCESSING_LAPLACEEDGEDETECTOR_HPP_
 
-#include "EdgeDetector.hpp"
+#include "image_processing/EdgeDetector.hpp"
 
 namespace metII {
 

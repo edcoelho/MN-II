@@ -1,6 +1,6 @@
-#include "LaplaceEdgeDetector.hpp"
-#include "GaussianFilter.hpp"
-#include "LaplaceFilter.hpp"
+#include "image_processing/LaplaceEdgeDetector.hpp"
+#include "image_processing/GaussianFilter.hpp"
+#include "image_processing/LaplaceFilter.hpp"
 #include <cmath>
 
 metII::LaplaceEdgeDetector::LaplaceEdgeDetector (metII::GrayscaleImage img, float tolerance) : metII::EdgeDetector(img) {

@@ -1,7 +1,7 @@
-#ifndef SOBELFILTERY_HPP_
-#define SOBELFILTERY_HPP_
+#ifndef IMAGE_PROCESSING_SOBELFILTERY_HPP_
+#define IMAGE_PROCESSING_SOBELFILTERY_HPP_
 
-#include "Filter.hpp"
+#include "image_processing/Filter.hpp"
 
 namespace metII {
 

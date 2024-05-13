@@ -4,8 +4,7 @@ Projetos da disciplina de Métodos Numéricos II (CK0048) da UFC.
 
 ## Dependências
 
-É necessário utilizar alguma distribuição Linux como sistema operacional e ter o programa [make](https://www.gnu.org/software/make/) instalado para compilar o código. 
-**Obs.:** Cada projeto pode possuir suas próprias dependências, portanto confira o arquivo README.md de cada tarefa.
+É necessário utilizar alguma distribuição Linux como sistema operacional e ter o programa [make](https://www.gnu.org/software/make/) instalado para compilar o código. Além disso, é necessário ter instalado a biblioteca [OpenCV] (https://opencv.org/) para utilizar os headers de processamento de imagens.
 
 ## Build
 

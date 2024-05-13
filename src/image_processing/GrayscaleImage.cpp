@@ -1,4 +1,4 @@
-#include "GrayscaleImage.hpp"
+#include "image_processing/GrayscaleImage.hpp"
 #include <cmath>
 
 metII::GrayscaleImage::GrayscaleImage (std::size_t height, std::size_t width) {

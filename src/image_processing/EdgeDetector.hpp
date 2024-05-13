@@ -1,7 +1,7 @@
-#ifndef EDGEDETECTOR_HPP_
-#define EDGEDETECTOR_HPP_
+#ifndef IMAGE_PROCESSING_EDGEDETECTOR_HPP_
+#define IMAGE_PROCESSING_EDGEDETECTOR_HPP_
 
-#include "GrayscaleImage.hpp"
+#include "image_processing/GrayscaleImage.hpp"
 
 namespace metII {
 

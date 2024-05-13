@@ -1,7 +1,7 @@
-#ifndef LAPLACEFILTER_HPP_
-#define LAPLACEFILTER_HPP_
+#ifndef IMAGE_PROCESSING_LAPLACEFILTER_HPP_
+#define IMAGE_PROCESSING_LAPLACEFILTER_HPP_
 
-#include "Filter.hpp"
+#include "image_processing/Filter.hpp"
 
 namespace metII {
 

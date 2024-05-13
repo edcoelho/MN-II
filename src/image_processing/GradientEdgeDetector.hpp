@@ -1,7 +1,7 @@
-#ifndef GRADIENTEDGEDETECTOR_HPP_
-#define GRADIENTEDGEDETECTOR_HPP_
+#ifndef IMAGE_PROCESSING_GRADIENTEDGEDETECTOR_HPP_
+#define IMAGE_PROCESSING_GRADIENTEDGEDETECTOR_HPP_
 
-#include "EdgeDetector.hpp"
+#include "image_processing/EdgeDetector.hpp"
 
 namespace metII {
 

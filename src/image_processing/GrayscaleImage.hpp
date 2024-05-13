@@ -1,5 +1,5 @@
-#ifndef GRAYSCALEIMAGE_HPP_
-#define GRAYSCALEIMAGE_HPP_
+#ifndef IMAGE_PROCESSING_GRAYSCALEIMAGE_HPP_
+#define IMAGE_PROCESSING_GRAYSCALEIMAGE_HPP_
 
 #include <vector>
 #include <array>

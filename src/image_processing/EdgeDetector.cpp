@@ -1,8 +1,8 @@
-#include "EdgeDetector.hpp"
-#include "GaussianFilter.hpp"
-#include "SobelFilterX.hpp"
-#include "SobelFilterY.hpp" 
-#include "LaplaceFilter.hpp"
+#include "image_processing/EdgeDetector.hpp"
+#include "image_processing/GaussianFilter.hpp"
+#include "image_processing/SobelFilterX.hpp"
+#include "image_processing/SobelFilterY.hpp" 
+#include "image_processing/LaplaceFilter.hpp"
 #include <cmath>
 
 metII::EdgeDetector::EdgeDetector (metII::GrayscaleImage img) {

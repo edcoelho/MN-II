@@ -1,7 +1,7 @@
-#ifndef GAUSSIANFILTER_HPP_
-#define GAUSSIANFILTER_HPP_
+#ifndef IMAGE_PROCESSING_GAUSSIANFILTER_HPP_
+#define IMAGE_PROCESSING_GAUSSIANFILTER_HPP_
 
-#include "Filter.hpp"
+#include "image_processing/Filter.hpp"
 
 namespace metII {
 
