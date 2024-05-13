@@ -1,10 +1,10 @@
-CXXFLAGS := -pedantic-errors -Wall
-LDLIBS := 
-
 # Diretórios importantes.
 SRC_DIR := src/
 INCLUDE_DIR := include/
 BUILD_DIR := build/
+
+CXXFLAGS := -pedantic-errors -Wall -I$(INCLUDE_DIR) -I/usr/include/opencv4/
+LDLIBS := -lopencv_core -lopencv_imgcodecs -lopencv_imgproc -lopencv_highgui
 
 # Lista de arquivos .cpp
 CPP_FILES := $(shell find $(SRC_DIR) -name "*.cpp")
@@ -27,10 +27,10 @@ main: $(BUILD_DIR)main.o $(OBJ_FILES)
 
 # Targets para compilação.
 $(BUILD_DIR)main.o: $(SRC_DIR)main.cpp $(HEADERSONLY)
-	$(CXX) $(CXXFLAGS) -c $< -o $@ -I $(INCLUDE_DIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 $(BUILD_DIR)%.o: $(SRC_DIR)%.cpp $(INCLUDE_DIR)%.hpp $(HEADERSONLY)
-	$(CXX) $(CXXFLAGS) -c $< -o $@ -I $(INCLUDE_DIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 # Target para criar o diretório build.
 $(BUILD_DIR):

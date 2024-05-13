@@ -19,27 +19,20 @@ metII::kernel3 const& metII::Filter::get_kernel () const {
 
 }
 
-metII::image metII::Filter::correlation (const metII::image img) {
+metII::GrayscaleImage metII::Filter::correlation (const metII::GrayscaleImage img) {
 
     std::size_t padding = this->get_kernel().size() >> 1;
-    metII::image new_image = img;
+    metII::GrayscaleImage new_image(img.get_height(), img.get_width());
 
     // Loop indexes.
-    std::size_t image_i, image_j, kernel_i, kernel_j, color_channel;
+    std::size_t image_i, image_j, kernel_i, kernel_j;
 
     // Indexes for pixels inside kernel area.
     std::size_t pixel_i, pixel_j;
 
-    for (image_i = 0; image_i < img.size(); image_i++) {
+    for (image_i = 0; image_i < img.get_height(); image_i++) {
 
-        for (image_j = 0; image_j < img[0].size(); image_j++) {
-
-            // Reset the pixel.
-            for (color_channel = 0; color_channel < 3; color_channel++) {
-
-                new_image[image_i][image_j][color_channel] = 0.0f;
-
-            }
+        for (image_j = 0; image_j < img.get_width(); image_j++) {
 
             // Apply the kernel to the pixel.
             for (kernel_i = 0; kernel_i < this->get_kernel().size(); kernel_i++) {
@@ -49,13 +42,9 @@ metII::image metII::Filter::correlation (const metII::image img) {
                     pixel_i = image_i + kernel_i - padding;
                     pixel_j = image_j + kernel_j - padding;
 
-                    if (pixel_i >= 0 && pixel_i < img.size() && pixel_j >= 0 && pixel_j < img[0].size()) {
+                    if (pixel_i >= 0 && pixel_i < img.get_height() && pixel_j >= 0 && pixel_j < img.get_width()) {
 
-                        for (color_channel = 0; color_channel < 3; color_channel++) {
-
-                            new_image[image_i][image_j][color_channel] += img[pixel_i][pixel_j][color_channel] * kernel[kernel_i][kernel_j];
-
-                        }
+                        new_image(image_i, image_j) = new_image(image_i, image_j) + img(pixel_i, pixel_j) * kernel[kernel_i][kernel_j];
 
                     }
 
@@ -71,27 +60,20 @@ metII::image metII::Filter::correlation (const metII::image img) {
 
 }
 
-metII::image metII::Filter::convolution (const metII::image img) {
+metII::GrayscaleImage metII::Filter::convolution (const metII::GrayscaleImage img) {
 
     std::size_t padding = this->get_kernel().size() >> 1;
-    metII::image new_image = img;
+    metII::GrayscaleImage new_image(img.get_height(), img.get_width());
 
     // Loop indexes.
-    std::size_t image_i, image_j, kernel_i, kernel_j, color_channel;
+    std::size_t image_i, image_j, kernel_i, kernel_j;
 
     // Indexes for pixels inside kernel area.
     std::size_t pixel_i, pixel_j;
 
-    for (image_i = 0; image_i < img.size(); image_i++) {
+    for (image_i = 0; image_i < img.get_height(); image_i++) {
 
-        for (image_j = 0; image_j < img[0].size(); image_j++) {
-
-            // Reset the pixel.
-            for (color_channel = 0; color_channel < 3; color_channel++) {
-
-                new_image[image_i][image_j][color_channel] = 0.0f;
-
-            }
+        for (image_j = 0; image_j < img.get_width(); image_j++) {
 
             // Apply the kernel to the pixel.
             for (kernel_i = this->get_kernel().size() - 1; (int) kernel_i >= 0; kernel_i--) {
@@ -101,13 +83,9 @@ metII::image metII::Filter::convolution (const metII::image img) {
                     pixel_i = image_i - kernel_i + padding;
                     pixel_j = image_j - kernel_j + padding;
 
-                    if (pixel_i >= 0 && pixel_i < img.size() && pixel_j >= 0 && pixel_j < img[0].size()) {
+                    if (pixel_i >= 0 && pixel_i < img.get_height() && pixel_j >= 0 && pixel_j < img.get_width()) {
 
-                        for (color_channel = 0; color_channel < 3; color_channel++) {
-
-                            new_image[image_i][image_j][color_channel] += img[pixel_i][pixel_j][color_channel] * kernel[kernel_i][kernel_j];
-
-                        }
+                        new_image(image_i, image_j) = new_image(image_i, image_j) + img(pixel_i, pixel_j) * kernel[kernel_i][kernel_j];
 
                     }
 
