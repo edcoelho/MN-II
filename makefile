@@ -6,14 +6,29 @@ BUILD_DIR := build/
 CXXFLAGS := -pedantic-errors -Wall -I$(SRC_DIR) -I$(INCLUDE_DIR) -I/usr/include/opencv4/
 LDLIBS := -lopencv_core -lopencv_imgcodecs -lopencv_imgproc -lopencv_highgui
 
+# Arquivo main padrão.
+MAIN := $(addprefix $(SRC_DIR), main.cpp)
+# Arquivo .o relativo ao arquivo definido como main.
+MAIN_OBJ := $(patsubst %.cpp, %, $(notdir $(MAIN)))
+MAIN_OBJ := $(addprefix $(BUILD_DIR), $(MAIN_OBJ)).o
+
 # Lista de arquivos .cpp
 CPP_FILES := $(shell find $(SRC_DIR) -name "*.cpp")
 
+# Lista de arquivos .hpp
+HPP_FILES := $(shell find $(SRC_DIR) -name "*.hpp")
+
 # Lista de arquivos .o
 OBJ_FILES := $(patsubst $(SRC_DIR)%.cpp, $(BUILD_DIR)%.o, $(CPP_FILES))
+# Gambiarra para tirar da lista os arquivos main.
+# Tira da lista os arquivos .o que não tem .hpp correspondente.
+OBJ_FILES := $(filter $(patsubst $(SRC_DIR)%.hpp, $(BUILD_DIR)%.o, $(HPP_FILES)), $(OBJ_FILES))
 
 # Lista de headers sem implementação.
-HEADERSONLY := $(filter-out $(patsubst $(SRC_DIR)%.cpp, $(SRC_DIR)%.hpp, $(CPP_FILES)), $(shell find $(SRC_DIR) -name "*.hpp"))
+HEADERSONLY := $(filter-out $(patsubst $(SRC_DIR)%.cpp, $(SRC_DIR)%.hpp, $(CPP_FILES)), $(HPP_FILES))
+
+# Indica para o make quais targets não estão associados com arquivos.
+.PHONY: main clean debug
 
 ALL: $(BUILD_DIR) main
 
@@ -22,13 +37,14 @@ debug: CXXFLAGS += -g
 debug: clean ALL
 
 # Target para ligação.
-main: $(BUILD_DIR)main.o $(OBJ_FILES)
-	$(CXX) $(CXXFLAGS) $(OBJ_FILES) -o $@ $(LDLIBS)
+main: $(MAIN_OBJ) $(OBJ_FILES)
+	$(CXX) $(CXXFLAGS) $(OBJ_FILES) $(MAIN_OBJ) -o $@ $(LDLIBS)
 
-# Targets para compilação.
-$(BUILD_DIR)main.o: $(SRC_DIR)main.cpp $(HEADERSONLY)
+# Target para compilação do arquivo main.
+$(MAIN_OBJ): $(MAIN) $(HEADERSONLY)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
+# Target para compilação dos outros arquivos .cpp
 $(BUILD_DIR)%.o: $(SRC_DIR)%.cpp $(SRC_DIR)%.hpp $(HEADERSONLY)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
