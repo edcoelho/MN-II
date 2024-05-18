@@ -1,7 +1,7 @@
-#ifndef IMAGE_PROCESSING_FILTER_HPP_
-#define IMAGE_PROCESSING_FILTER_HPP_
+#ifndef MET_II_FILTER_HPP_
+#define MET_II_FILTER_HPP_
 
-#include "image_processing/custom_types.hpp"
+#include "custom_types.hpp"
 #include "image_processing/GrayscaleImage.hpp"
 
 namespace metII {

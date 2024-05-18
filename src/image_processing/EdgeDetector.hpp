@@ -1,5 +1,5 @@
-#ifndef IMAGE_PROCESSING_EDGEDETECTOR_HPP_
-#define IMAGE_PROCESSING_EDGEDETECTOR_HPP_
+#ifndef MET_II_EDGEDETECTOR_HPP_
+#define MET_II_EDGEDETECTOR_HPP_
 
 #include "image_processing/GrayscaleImage.hpp"
 

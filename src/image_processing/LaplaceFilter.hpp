@@ -1,5 +1,5 @@
-#ifndef IMAGE_PROCESSING_LAPLACEFILTER_HPP_
-#define IMAGE_PROCESSING_LAPLACEFILTER_HPP_
+#ifndef MET_II_LAPLACEFILTER_HPP_
+#define MET_II_LAPLACEFILTER_HPP_
 
 #include "image_processing/Filter.hpp"
 

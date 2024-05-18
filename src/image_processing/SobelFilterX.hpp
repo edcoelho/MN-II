@@ -1,5 +1,5 @@
-#ifndef IMAGE_PROCESSING_SOBELFILTERX_HPP_
-#define IMAGE_PROCESSING_SOBELFILTERX_HPP_
+#ifndef MET_II_SOBELFILTERX_HPP_
+#define MET_II_SOBELFILTERX_HPP_
 
 #include "image_processing/Filter.hpp"
 
