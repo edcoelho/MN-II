@@ -2,10 +2,7 @@
 #include <iostream>
 #include <cmath>
 #include "integration/RiemannIntegral.hpp"
-#include "integration/GaussHermiteIntegral1.hpp"
-#include "integration/GaussHermiteIntegral2.hpp"
-#include "integration/GaussHermiteIntegral3.hpp"
-#include "integration/GaussHermiteIntegral4.hpp"
+#include "integration/GaussHermiteIntegral.hpp"
 
 double f(double x) {
 
@@ -36,16 +33,16 @@ int main (int argc, char * argv[]) {
     metII::RiemannIntegral r(1.0, 5.0);
     std::cout << r.integrate(&f) << std::endl;
 
-    metII::GaussHermiteIntegral1 gh1;
+    metII::GaussHermiteIntegral gh1(1);
     std::cout << gh1.integrate(&g) << std::endl;
 
-    metII::GaussHermiteIntegral2 gh2;
+    metII::GaussHermiteIntegral gh2(2);
     std::cout << gh2.integrate(&f) << std::endl;
 
-    metII::GaussHermiteIntegral3 gh3;
+    metII::GaussHermiteIntegral gh3(3);
     std::cout << gh3.integrate(&h) << std::endl;
 
-    metII::GaussHermiteIntegral4 gh4;
+    metII::GaussHermiteIntegral gh4(4);
     std::cout << gh4.integrate(&i) << std::endl;
 
     return EXIT_SUCCESS;
