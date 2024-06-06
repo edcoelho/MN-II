@@ -1,16 +1,16 @@
 #include "integration/Integral.hpp"
 #include <cmath>
 
-metII::Integral::Integral (double _lower_limit, double _upper_limit) : lower_limit(_lower_limit), upper_limit(_upper_limit) {}
+metII::Integral::Integral (double _lower_limit, double _upper_limit, bool _use_partitions, double _epsilon) : lower_limit(_lower_limit), upper_limit(_upper_limit), use_partitions(_use_partitions), epsilon(_epsilon) {}
 
 double metII::Integral::get_lower_limit () const {
 
     return this->lower_limit;
 
 }
-void metII::Integral::set_lower_limit (double ll) {
+void metII::Integral::set_lower_limit (double _lower_limit) {
 
-    this->lower_limit = ll;
+    this->lower_limit = _lower_limit;
 
 }
 
@@ -19,9 +19,31 @@ double metII::Integral::get_upper_limit () const {
     return this->upper_limit;
 
 }
-void metII::Integral::set_upper_limit (double ul) {
+void metII::Integral::set_upper_limit (double _upper_limit) {
 
-    this->upper_limit = ul;
+    this->upper_limit = _upper_limit;
+
+}
+
+double metII::Integral::get_epsilon () const {
+
+    return this->epsilon;
+
+}
+void metII::Integral::set_epsilon (double _epsilon) {
+
+    this->epsilon = _epsilon;
+
+}
+
+bool metII::Integral::get_use_partitions () const {
+
+    return this->use_partitions;
+
+}
+void metII::Integral::set_use_partitions (bool _use_partitions) {
+
+    this->use_partitions = _use_partitions;
 
 }
 
@@ -43,7 +65,13 @@ double metII::Integral::integrate_partitions(std::function<double(double)> func,
 
 }
 
-double metII::Integral::integrate (std::function<double(double)> func, double epsilon) {
+double metII::Integral::integrate (std::function<double(double)> func) {
+
+    if (!this->get_use_partitions()) {
+
+        return this->integrate_interval(func, this->get_lower_limit(), this->get_upper_limit());
+
+    }
 
     double relative_error = 1.0, old_sum = 0.0, new_sum = 0.0;
     std::size_t num_of_partitions = 1;
@@ -54,9 +82,13 @@ double metII::Integral::integrate (std::function<double(double)> func, double ep
         if (new_sum != 0.0) {
 
             relative_error = std::abs((new_sum - old_sum) / new_sum);
-            old_sum = new_sum;
+
+        } else if (new_sum == 0.0 && old_sum != 0.0) {
+
+            relative_error = std::abs(new_sum - old_sum);
 
         }
+        old_sum = new_sum;
         num_of_partitions *= 2;
 
     }

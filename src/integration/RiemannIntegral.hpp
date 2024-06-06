@@ -13,7 +13,7 @@ namespace metII {
 
         public:
 
-            RiemannIntegral (double _lower_limit, double _upper_limit);
+            RiemannIntegral (double _lower_limit, double _upper_limit, bool _use_partitions = true, double _epsilon = 1e-6);
 
     };
 
