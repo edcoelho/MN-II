@@ -74,7 +74,7 @@ double metII::Integral::integrate (std::function<double(double)> func) {
     }
 
     double relative_error = 1.0, old_sum = 0.0, new_sum = 0.0;
-    std::size_t num_of_partitions = 1;
+    std::size_t num_of_partitions = 1, num_zero_iterations = 0, max_zero_iterations = 10;
 
     while (relative_error > epsilon) {
 
@@ -82,12 +82,27 @@ double metII::Integral::integrate (std::function<double(double)> func) {
         if (new_sum != 0.0) {
 
             relative_error = std::abs((new_sum - old_sum) / new_sum);
+            num_zero_iterations = 0;
 
         } else if (new_sum == 0.0 && old_sum != 0.0) {
 
             relative_error = std::abs(new_sum - old_sum);
+            num_zero_iterations = 0;
+
+        } else {
+            
+            if (num_zero_iterations < max_zero_iterations) {
+
+                num_zero_iterations++;
+
+            } else {
+
+                relative_error = 0.0;
+
+            }
 
         }
+
         old_sum = new_sum;
         num_of_partitions *= 2;
 
