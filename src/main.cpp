@@ -4,6 +4,7 @@
 #include "integration/RiemannIntegral.hpp"
 #include "integration/GaussHermiteIntegral.hpp"
 #include "integration/GaussLaguerreIntegral.hpp"
+#include "integration/GaussChebyshevIntegral.hpp"
 
 double f(double x) {
 
@@ -72,6 +73,20 @@ int main (int argc, char * argv[]) {
 
     metII::GaussLaguerreIntegral gl4(4);
     std::cout << gl4.integrate(&i) << std::endl;
+
+    std::cout << std::endl << "Gauss-Chebyshev" << std::endl;
+
+    metII::GaussChebyshevIntegral gc1(1);
+    std::cout << gc1.integrate(&g) << std::endl;
+
+    metII::GaussChebyshevIntegral gc2(2);
+    std::cout << gc2.integrate(&f) << std::endl;
+
+    metII::GaussChebyshevIntegral gc3(3);
+    std::cout << gc3.integrate(&h) << std::endl;
+
+    metII::GaussChebyshevIntegral gc4(4);
+    std::cout << gc4.integrate(&i) << std::endl;
 
     return EXIT_SUCCESS;
 
