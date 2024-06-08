@@ -1,6 +1,6 @@
 #include "integration/SpecialGaussIntegral.hpp"
 
-metII::SpecialGaussIntegral::SpecialGaussIntegral () : metII::Integral(0.0, 0.0, false) {}
+metII::SpecialGaussIntegral::SpecialGaussIntegral () : metII::GaussIntegral(0.0, 0.0, false) {}
 metII::SpecialGaussIntegral::~SpecialGaussIntegral () {}
 
 double metII::SpecialGaussIntegral::integrate_interval (std::function<double(double)> func, double a, double b) {

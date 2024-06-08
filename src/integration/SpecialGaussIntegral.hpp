@@ -1,19 +1,15 @@
-#ifndef MET_II_SPECIAL_GAUSS_INTEGRAL_1_HPP_
-#define MET_II_SPECIAL_GAUSS_INTEGRAL_1_HPP_
+#ifndef MET_II_SPECIAL_GAUSS_INTEGRAL_HPP_
+#define MET_II_SPECIAL_GAUSS_INTEGRAL_HPP_
 
-#include "integration/Integral.hpp"
-#include <vector>
+#include "integration/GaussIntegral.hpp"
 
 namespace metII {
 
-    class SpecialGaussIntegral : public Integral {
+    class SpecialGaussIntegral : public GaussIntegral {
 
         protected:
 
             double integrate_interval (std::function<double(double)> func, double a, double b) override;
-
-            std::vector<double> weights;
-            std::vector<double> roots;
 
         public:
 
