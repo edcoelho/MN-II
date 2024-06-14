@@ -1,10 +1,10 @@
 #include "GaussLegendreIntegral.hpp" 
 #include <stdexcept>
 #include <cmath>
-
+#include <iostream>
 metII::GaussLegendreIntegral::GaussLegendreIntegral(double _lower_limit, double _upper_limit, std::function<double(double)> _func,
     std::size_t num_of_gauss_points , bool _use_partitions, double _epsilon)
-    : GaussIntegral(_lower_limit, _upper_limit, _func, _use_partitions, _epsilon), gauss_points(num_of_gauss_points) 
+    : GaussIntegral(_lower_limit, _upper_limit, _func, _use_partitions, _epsilon)
 {
     if (num_of_gauss_points < 1 || num_of_gauss_points > 4) {
         throw std::invalid_argument("Error: It is not possible to instantiate the class metII::GaussLaguerreIntegral with num_of_gauss_points<1 or num_of_gauss_points>4!");
@@ -13,11 +13,11 @@ metII::GaussLegendreIntegral::GaussLegendreIntegral(double _lower_limit, double 
 }
 
 std::vector<double> get_weights_1_points() {
-    return std::vector<double>({2});
+    return std::vector<double>({2.0});
 }
 
 std::vector<double> get_weights_2_points() {
-    double w = 1; 
+    double w = 1.0; 
     return std::vector<double>({w, w});
 }
 
@@ -52,7 +52,7 @@ std::vector<double> get_roots_4_points() {
 }
 
 double get_x (double root_k, double a, double b) {
-    return (b + a)/2 + ((b - a)/2)*root_k; 
+    return (b + a)/2.0 + ((b - a)/2.0)*root_k; 
 }
 
 
@@ -85,7 +85,7 @@ double metII::GaussLegendreIntegral::integrate_interval (double a, double b) {
     for (int k = 0; k < gauss_points; k++) {
         sum += weights[k] * this->get_func()( get_x(roots[k], a, b) ); 
     }
-    return ((b-a)/2)*sum ; 
+    return ((b-a)/2.0)*sum ; 
 }
 
 double metII::GaussLegendreIntegral::get_gauss_points (void) const {

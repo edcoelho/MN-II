@@ -46,6 +46,30 @@ double k(double x) {
 
 }
 
+double j(double x) {
+
+    return 1.0/std::sqrt(x);
+
+}
+
+double k(double x) {
+
+    return std::pow(M_PI*std::sqrt(x), M_E);
+
+}
+
+void test_gauss_legendre (std::function<double (double)> func, double a, double b) {
+    // Interval
+    std::cout << "Gauss Legendre [" << a << ", " << b <<"]\n"; 
+
+    for (int gauss_points = 1; gauss_points < 5; gauss_points++) {
+        metII::GaussLegendreIntegral gl(a, b, func, gauss_points);
+        std::cout << "Points: " << gauss_points << "\n"; 
+        std::cout << gl.integrate() << "\n";  
+    }
+    std::cout << "\n";
+}
+
 int main (int argc, char * argv[]) {
 
     std::cout << "Newton-Cotes (Closed) [1.0, 5.0]" << std::endl;
@@ -132,6 +156,16 @@ int main (int argc, char * argv[]) {
     metII::DoubleExponentialIntegral de_gl4(0.0, 3.0, &j, metII::GAUSS_LEGENDRE, 4);
     std::cout << de_gl4.integrate() << std::endl;
 
+    std::cout << "\n"; 
+
+    std::cout << "g\n"; 
+    test_gauss_legendre(&g, -1, 1); 
+    std::cout << "f\n"; 
+    test_gauss_legendre(&f, -1, 1); 
+    std::cout << "h\n"; 
+    test_gauss_legendre(&h, -1, 1); 
+    std::cout << "i\n"; 
+    test_gauss_legendre(&i, -1, 1); 
     return EXIT_SUCCESS;
 
 }
