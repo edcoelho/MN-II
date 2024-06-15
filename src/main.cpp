@@ -46,18 +46,6 @@ double k(double x) {
 
 }
 
-double j(double x) {
-
-    return 1.0/std::sqrt(x);
-
-}
-
-double k(double x) {
-
-    return std::pow(M_PI*std::sqrt(x), M_E);
-
-}
-
 void test_gauss_legendre (std::function<double (double)> func, double a, double b) {
     // Interval
     std::cout << "Gauss Legendre [" << a << ", " << b <<"]\n"; 
