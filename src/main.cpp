@@ -34,59 +34,59 @@ int main (int argc, char * argv[]) {
 
     std::cout << "Riemann [-1.0, 1.0]" << std::endl;
 
-    metII::RiemannIntegral r1(-1.0, 1.0);
-    std::cout << r1.integrate(&g) << std::endl;
+    metII::RiemannIntegral r1(-1.0, 1.0, &g);
+    std::cout << r1.integrate() << std::endl;
 
-    metII::RiemannIntegral r2(-1.0, 1.0);
-    std::cout << r2.integrate(&f) << std::endl;
+    metII::RiemannIntegral r2(-1.0, 1.0, &f);
+    std::cout << r2.integrate() << std::endl;
 
-    metII::RiemannIntegral r3(-1.0, 1.0);
-    std::cout << r3.integrate(&h) << std::endl;
+    metII::RiemannIntegral r3(-1.0, 1.0, &h);
+    std::cout << r3.integrate() << std::endl;
 
-    metII::RiemannIntegral r4(-1.0, 1.0);
-    std::cout << r4.integrate(&i) << std::endl;
+    metII::RiemannIntegral r4(-1.0, 1.0, &i);
+    std::cout << r4.integrate() << std::endl;
 
     std::cout << std::endl << "Gauss-Hermite" << std::endl;
 
-    metII::GaussHermiteIntegral gh1(1);
-    std::cout << gh1.integrate(&g) << std::endl;
+    metII::GaussHermiteIntegral gh1(&g, 1);
+    std::cout << gh1.integrate() << std::endl;
 
-    metII::GaussHermiteIntegral gh2(2);
-    std::cout << gh2.integrate(&f) << std::endl;
+    metII::GaussHermiteIntegral gh2(&f, 2);
+    std::cout << gh2.integrate() << std::endl;
 
-    metII::GaussHermiteIntegral gh3(3);
-    std::cout << gh3.integrate(&h) << std::endl;
+    metII::GaussHermiteIntegral gh3(&h, 3);
+    std::cout << gh3.integrate() << std::endl;
 
-    metII::GaussHermiteIntegral gh4(4);
-    std::cout << gh4.integrate(&i) << std::endl;
+    metII::GaussHermiteIntegral gh4(&i, 4);
+    std::cout << gh4.integrate() << std::endl;
 
     std::cout << std::endl << "Gauss-Laguerre" << std::endl;
 
-    metII::GaussLaguerreIntegral gl1(1);
-    std::cout << gl1.integrate(&g) << std::endl;
+    metII::GaussLaguerreIntegral gl1(&g, 1);
+    std::cout << gl1.integrate() << std::endl;
 
-    metII::GaussLaguerreIntegral gl2(2);
-    std::cout << gl2.integrate(&f) << std::endl;
+    metII::GaussLaguerreIntegral gl2(&f, 2);
+    std::cout << gl2.integrate() << std::endl;
 
-    metII::GaussLaguerreIntegral gl3(3);
-    std::cout << gl3.integrate(&h) << std::endl;
+    metII::GaussLaguerreIntegral gl3(&h, 3);
+    std::cout << gl3.integrate() << std::endl;
 
-    metII::GaussLaguerreIntegral gl4(4);
-    std::cout << gl4.integrate(&i) << std::endl;
+    metII::GaussLaguerreIntegral gl4(&i, 4);
+    std::cout << gl4.integrate() << std::endl;
 
     std::cout << std::endl << "Gauss-Chebyshev" << std::endl;
 
-    metII::GaussChebyshevIntegral gc1(1);
-    std::cout << gc1.integrate(&g) << std::endl;
+    metII::GaussChebyshevIntegral gc1(&g, 1);
+    std::cout << gc1.integrate() << std::endl;
 
-    metII::GaussChebyshevIntegral gc2(2);
-    std::cout << gc2.integrate(&f) << std::endl;
+    metII::GaussChebyshevIntegral gc2(&f, 2);
+    std::cout << gc2.integrate() << std::endl;
 
-    metII::GaussChebyshevIntegral gc3(3);
-    std::cout << gc3.integrate(&h) << std::endl;
+    metII::GaussChebyshevIntegral gc3(&h, 3);
+    std::cout << gc3.integrate() << std::endl;
 
-    metII::GaussChebyshevIntegral gc4(4);
-    std::cout << gc4.integrate(&i) << std::endl;
+    metII::GaussChebyshevIntegral gc4(&i, 4);
+    std::cout << gc4.integrate() << std::endl;
 
     return EXIT_SUCCESS;
 

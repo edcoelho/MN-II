@@ -15,7 +15,7 @@ namespace metII {
 
         public:
 
-            GaussIntegral (double _lower_limit, double _upper_limit, bool _use_partitions, double _epsilon = 1e-6);
+            GaussIntegral (double _lower_limit, double _upper_limit, std::function<double(double)> _func, bool _use_partitions, double _epsilon = 1e-6);
 
     };
 

@@ -2,7 +2,7 @@
 #include <cmath>
 #include <stdexcept>
 
-metII::GaussChebyshevIntegral::GaussChebyshevIntegral (std::size_t num_of_gauss_points) : SpecialGaussIntegral() {
+metII::GaussChebyshevIntegral::GaussChebyshevIntegral (std::function<double(double)> _func, std::size_t num_of_gauss_points) : SpecialGaussIntegral(_func) {
 
     if (num_of_gauss_points >= 1) {
 

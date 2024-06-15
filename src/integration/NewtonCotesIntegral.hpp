@@ -5,9 +5,9 @@
 namespace metII {
     class NewtonCotesIntegral : public metII::Integral {
     public: 
-        NewtonCotesIntegral(double _lower_limit, double _upper_limit, bool _is_closed = 1, int _degree = 1); 
+        NewtonCotesIntegral(double _lower_limit, double _upper_limit, std::function<double(double)> _func, bool _is_closed = 1, int _degree = 1); 
 
-        double integrate_interval (std::function<double(double)> func, double a, double b) override;
+        double integrate_interval (double a, double b) override;
 
         void set_is_closed(bool _is_closed); 
         bool get_is_closed() const;  

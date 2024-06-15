@@ -1,8 +1,8 @@
 #include "NewtonCotesIntegral.hpp"
 #include <stdexcept>
 
-metII::NewtonCotesIntegral::NewtonCotesIntegral(double _lower_limit, double _upper_limit, bool _is_closed, int _degree)
-    : metII::Integral(_lower_limit, _upper_limit, true), is_closed(_is_closed), degree(_degree) 
+metII::NewtonCotesIntegral::NewtonCotesIntegral(double _lower_limit, double _upper_limit, std::function<double(double)> _func, bool _is_closed, int _degree)
+    : metII::Integral(_lower_limit, _upper_limit, _func, true), is_closed(_is_closed), degree(_degree) 
 {
     if (_degree < 1 || _degree > 4) {
         throw std::invalid_argument("Error: It is not possible to instantiate the class metII::NewtonCotesIntegral with degree<1 or degree>4!");
@@ -50,7 +50,7 @@ double integral_result (std::function<double(double)> func, double h, double a, 
     }
     return integral_res; 
 }
-double metII::NewtonCotesIntegral::integrate_interval(std::function<double(double)> func, double a, double b) {
+double metII::NewtonCotesIntegral::integrate_interval(double a, double b) {
     double delta = (a-b);
     double h; 
     if (this->is_closed) { 
@@ -60,7 +60,7 @@ double metII::NewtonCotesIntegral::integrate_interval(std::function<double(doubl
         h = delta/(this->degree + 2); 
     }
 
-    return integral_result(func, h, a, b, this->is_closed, this->degree);
+    return integral_result(this->get_func(), h, a, b, this->is_closed, this->degree);
     
 }
 

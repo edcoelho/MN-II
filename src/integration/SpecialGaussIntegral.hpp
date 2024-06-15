@@ -9,11 +9,11 @@ namespace metII {
 
         protected:
 
-            double integrate_interval (std::function<double(double)> func, double a, double b) override;
+            double integrate_interval (double a, double b) override;
 
         public:
 
-            SpecialGaussIntegral ();
+            SpecialGaussIntegral (std::function<double(double)> _func);
 
             virtual ~SpecialGaussIntegral () = 0;
 
@@ -21,7 +21,7 @@ namespace metII {
             void set_use_partitions(bool _use_partitions) override;
 
             // Since this is one of Gauss' special quadratures, this method integrate using no partitions.
-            double integrate_partitions(std::function<double(double)> func, std::size_t num_of_partitions = 1) override;
+            double integrate_partitions(std::size_t num_of_partitions = 1) override;
 
 
     };

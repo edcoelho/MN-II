@@ -2,7 +2,7 @@
 #include <cmath>
 #include <stdexcept>
 
-metII::GaussHermiteIntegral::GaussHermiteIntegral (std::size_t num_of_gauss_points) : SpecialGaussIntegral() {
+metII::GaussHermiteIntegral::GaussHermiteIntegral (std::function<double(double)> _func, std::size_t num_of_gauss_points) : SpecialGaussIntegral(_func) {
 
     switch (num_of_gauss_points) {
 

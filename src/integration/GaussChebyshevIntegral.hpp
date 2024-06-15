@@ -9,7 +9,7 @@ namespace metII {
 
         public:
 
-            GaussChebyshevIntegral (std::size_t num_of_gauss_points = 2);
+            GaussChebyshevIntegral (std::function<double(double)> _func, std::size_t num_of_gauss_points = 2);
 
     };
 

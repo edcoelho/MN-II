@@ -9,11 +9,11 @@ namespace metII {
 
         protected:
 
-            double integrate_interval (std::function<double(double)> func, double a, double b) override;
+            double integrate_interval (double a, double b) override;
 
         public:
 
-            RiemannIntegral (double _lower_limit, double _upper_limit, bool _use_partitions = true, double _epsilon = 1e-6);
+            RiemannIntegral (double _lower_limit, double _upper_limit, std::function<double(double)> _func, bool _use_partitions = true, double _epsilon = 1e-6);
 
     };
 

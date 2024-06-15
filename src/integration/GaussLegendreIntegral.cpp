@@ -2,9 +2,9 @@
 #include <stdexcept>
 #include <cmath>
 
-metII::GaussLegendreIntegral::GaussLegendreIntegral(double _lower_limit, double _upper_limit,
+metII::GaussLegendreIntegral::GaussLegendreIntegral(double _lower_limit, double _upper_limit, std::function<double(double)> _func,
     std::size_t num_of_gauss_points , bool _use_partitions, double _epsilon)
-    : GaussIntegral(_lower_limit, _upper_limit, _use_partitions, _epsilon), gauss_points(num_of_gauss_points) 
+    : GaussIntegral(_lower_limit, _upper_limit, _func, _use_partitions, _epsilon), gauss_points(num_of_gauss_points) 
 {
     if (num_of_gauss_points < 1 || num_of_gauss_points > 4) {
         throw std::invalid_argument("Error: It is not possible to instantiate the class metII::GaussLaguerreIntegral with num_of_gauss_points<1 or num_of_gauss_points>4!");
@@ -56,7 +56,7 @@ double get_x (double root_k, double a, double b) {
 }
 
 
-double metII::GaussLegendreIntegral::integrate_interval (std::function<double(double)> func, double a, double b) {
+double metII::GaussLegendreIntegral::integrate_interval (double a, double b) {
     std::vector<double> weights;
     std::vector<double> roots;  
     switch (gauss_points) {
@@ -83,7 +83,7 @@ double metII::GaussLegendreIntegral::integrate_interval (std::function<double(do
     double sum = 0.0; 
 
     for (int k = 0; k < gauss_points; k++) {
-        sum += weights[k] * func( get_x(roots[k], a, b) ); 
+        sum += weights[k] * this->get_func()( get_x(roots[k], a, b) ); 
     }
     return ((b-a)/2)*sum ; 
 }

@@ -1,7 +1,7 @@
 #include "integration/Integral.hpp"
 #include <cmath>
 
-metII::Integral::Integral (double _lower_limit, double _upper_limit, bool _use_partitions, double _epsilon) : lower_limit(_lower_limit), upper_limit(_upper_limit), use_partitions(_use_partitions), epsilon(_epsilon) {}
+metII::Integral::Integral (double _lower_limit, double _upper_limit, std::function<double(double)> _func, bool _use_partitions, double _epsilon) : lower_limit(_lower_limit), upper_limit(_upper_limit), func(_func), use_partitions(_use_partitions), epsilon(_epsilon) {}
 
 double metII::Integral::get_lower_limit () const {
 
@@ -22,6 +22,17 @@ double metII::Integral::get_upper_limit () const {
 void metII::Integral::set_upper_limit (double _upper_limit) {
 
     this->upper_limit = _upper_limit;
+
+}
+
+std::function<double(double)> metII::Integral::get_func () const {
+
+    return this->func;
+
+}
+void metII::Integral::set_func (std::function<double(double)> _func) {
+
+    this->func = _func;
 
 }
 
@@ -47,7 +58,7 @@ void metII::Integral::set_use_partitions (bool _use_partitions) {
 
 }
 
-double metII::Integral::integrate_partitions(std::function<double(double)> func, std::size_t num_of_partitions) {
+double metII::Integral::integrate_partitions(std::size_t num_of_partitions) {
 
     double delta_x, a, b, sum = 0.0;
 
@@ -57,7 +68,7 @@ double metII::Integral::integrate_partitions(std::function<double(double)> func,
 
         a = this->get_lower_limit() + i*delta_x;
         b = a + delta_x;
-        sum += this->integrate_interval(func, a, b);
+        sum += this->integrate_interval(a, b);
         
     }
 
@@ -65,11 +76,11 @@ double metII::Integral::integrate_partitions(std::function<double(double)> func,
 
 }
 
-double metII::Integral::integrate (std::function<double(double)> func) {
+double metII::Integral::integrate () {
 
     if (!this->get_use_partitions()) {
 
-        return this->integrate_interval(func, this->get_lower_limit(), this->get_upper_limit());
+        return this->integrate_interval(this->get_lower_limit(), this->get_upper_limit());
 
     }
 
@@ -78,7 +89,7 @@ double metII::Integral::integrate (std::function<double(double)> func) {
 
     while (relative_error > epsilon) {
 
-        new_sum = this->integrate_partitions(func, num_of_partitions);
+        new_sum = this->integrate_partitions(num_of_partitions);
         if (new_sum != 0.0) {
 
             relative_error = std::abs((new_sum - old_sum) / new_sum);
