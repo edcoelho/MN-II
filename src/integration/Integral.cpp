@@ -87,7 +87,7 @@ double metII::Integral::integrate () {
     double relative_error = 1.0, old_sum = 0.0, new_sum = 0.0;
     std::size_t num_of_partitions = 1, num_zero_iterations = 0, max_zero_iterations = 10;
 
-    while (relative_error > epsilon) {
+    while (relative_error > this->get_epsilon()) {
 
         new_sum = this->integrate_partitions(num_of_partitions);
         if (new_sum != 0.0) {

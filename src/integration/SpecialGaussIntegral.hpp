@@ -20,7 +20,7 @@ namespace metII {
             // Since this is one of Gauss' special quadratures, this method does nothing, because special quadratures cannot use partitioning.
             void set_use_partitions(bool _use_partitions) override;
 
-            // Since this is one of Gauss' special quadratures, this method integrate using no partitions.
+            // Since this is one of Gauss' special quadratures, this method integrate using no partitions, because special quadratures cannot use partitioning.
             double integrate_partitions(std::size_t num_of_partitions = 1) override;
 
 

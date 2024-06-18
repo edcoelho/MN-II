@@ -22,6 +22,8 @@ namespace metII {
 
             Integral (double _lower_limit, double _upper_limit, std::function<double(double)> _func, bool _use_partitions, double _epsilon = 1e-6);
 
+            virtual ~Integral () = default;
+
             double get_lower_limit () const;
             void set_lower_limit (double _lower_limit);
 
@@ -29,7 +31,7 @@ namespace metII {
             void set_upper_limit (double _upper_limit);
 
             std::function<double(double)> get_func () const;
-            void set_func (std::function<double(double)> _func);
+            virtual void set_func (std::function<double(double)> _func);
 
             double get_epsilon () const;
             void set_epsilon (double _epsilon);
