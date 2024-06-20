@@ -21,7 +21,7 @@ double integral_result (std::function<double(double)> func, double h, double a, 
                 integral_res = (h/3.0)*(func(a) + 4*func(a+h) + func(b));
                 break; 
             case 3: 
-                integral_res = ((3.0*h)/8.0)*(func(a) + 3*func(a+h) + 3*(func(a+2*h) + func(b)));   
+                integral_res = ((3.0*h)/8.0)*(func(a) + 3*func(a+h) + 3*func(a+2*h) + func(b));   
                 break;
             case 4: 
                 integral_res = ((2.0 * h)/45.0)*(7*func(a) + 32*func(a + h) + 12*func(a + 2*h) + 32*func(a + 3*h) + 7*func(b));
@@ -36,7 +36,7 @@ double integral_result (std::function<double(double)> func, double h, double a, 
                 integral_res = ((3*h)/2.0)*(func(a + h) + func(a + 2*h));
                 break;
             case 2: 
-                integral_res = ((4.0*h)/3.0)*(2*func(a + h) - 2*func(a + 2*h) + 2*func(a + 3*h));   
+                integral_res = ((4.0*h)/3.0)*(2*func(a + h) - func(a + 2*h) + 2*func(a + 3*h));   
                 break; 
             case 3: 
                 integral_res = ((5.0*h)/24.0)*(11*func(a + h) + func(a + 2*h) + func(a + 3*h) + 11*func(a + 4*h)); 
@@ -51,7 +51,7 @@ double integral_result (std::function<double(double)> func, double h, double a, 
     return integral_res; 
 }
 double metII::NewtonCotesIntegral::integrate_interval(double a, double b) {
-    double delta = (a-b);
+    double delta = (b-a);
     double h; 
     if (this->is_closed) { 
         h = delta/this->degree; 

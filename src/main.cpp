@@ -60,7 +60,7 @@ void test_gauss_legendre (std::function<double (double)> func, double a, double 
 
 int main (int argc, char * argv[]) {
 
-    std::cout << "Newton-Cotes (Closed) [1.0, 5.0]" << std::endl;
+    std::cout << "Newton-Cotes (Open) [1.0, 5.0]" << std::endl;
 
     metII::NewtonCotesIntegral nc1(1.0, 5.0, &k, true, 1);
     std::cout << nc1.integrate() << std::endl;
