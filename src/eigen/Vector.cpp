@@ -150,3 +150,21 @@ double metII::Vector::dot (metII::Vector const& other) const {
     return result;
 
 }
+
+double metII::Vector::norm () const {
+
+    return std::sqrt(this->dot(*this));
+
+}
+
+void metII::Vector::normalize () {
+
+    double vector_norm = this->norm();
+
+    for (std::size_t i = 0; i < this->size(); i++) {
+
+        this->data[i] = this->data[i] / vector_norm;
+
+    }
+
+}

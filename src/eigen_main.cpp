@@ -80,6 +80,16 @@ void test_vectors () {
     // dot product
     double dot_product = v1.dot(v2);
     std::cout << "Dot product of v1 and v2: " << dot_product << " (Expected: 25.0)" << std::endl << std::endl;
+
+    // norm
+    double vector_norm = v1.norm();
+    std::cout << "Norm of v1: " << vector_norm << " (Expected: 5.477)" << std::endl << std::endl;
+
+    // normalize
+    v1.normalize();
+    vector_norm = v1.norm();
+    std::cout << "Norm of normalized v1: " << vector_norm << " (Expected: 1.0)" << std::endl << std::endl;
+
 }
 
 void test_matrices() {
