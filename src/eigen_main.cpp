@@ -1,6 +1,7 @@
 #include <iostream>
 #include "eigen/Vector.hpp"
 #include "eigen/SquareMatrix.hpp"
+#include "eigen/PowerIteration.hpp"
 
 void print_vector (metII::Vector vector) {
 
@@ -153,11 +154,53 @@ void test_matrices() {
     std::cout << "(Expected: 9.2 26.5 23.94)" << std::endl << std::endl;
 }
 
+void test_power_iterations () {
+
+    metII::PowerIteration p;
+    std::pair<double, metII::Vector> results;
+    metII::SquareMatrix A(3);
+
+    A(0, 0) = 5.0;
+    A(0, 1) = 2.0;
+    A(0, 2) = 1.0;
+
+    A(1, 0) = 2.0;
+    A(1, 1) = 3.0;
+    A(1, 2) = 1.0;
+
+    A(2, 0) = 1.0;
+    A(2, 1) = 1.0;
+    A(2, 2) = 2.0;
+
+    results = p.compute(A);
+
+    std::cout << "Matrix A:" << std::endl;
+    print_matrix(A);
+    std::cout << std::endl << std::endl;
+    
+    std::cout << "Eigenvalue of matrix A using power iteraction: " << results.first << std::endl << std::endl;
+    
+    std::cout << "Eigenvector of matrix A using power iteraction: " << std::endl;
+    print_vector(results.second);
+    std::cout << std::endl;
+
+    std::cout << "Matrix A times Eigenvector: " << std::endl;
+    print_vector(A * results.second);
+    std::cout << std::endl;
+
+    std::cout << "Eigenvalue times Eigenvector: " << std::endl;
+    print_vector(results.second * results.first);
+    std::cout << std::endl;
+
+}
+
 int main() {
 
     test_vectors();
 
     test_matrices();
+
+    test_power_iterations();
 
     return EXIT_SUCCESS;
 }
