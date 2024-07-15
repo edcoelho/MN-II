@@ -1,5 +1,6 @@
 #include "eigen/Vector.hpp"
 #include <stdexcept>
+#include <cmath>
 
 metII::Vector::Vector (std::size_t size, double value) {
 
