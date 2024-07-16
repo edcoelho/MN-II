@@ -15,6 +15,8 @@ namespace metII {
         public:
 
             Vector (std::size_t size = 3, double value = 0.0);
+            /*Creates a vector in the [range.first, range.second] inclusive integer interval*/
+            Vector (std::pair<int, int> range); 
 
             double operator[] (std::size_t index) const;
             double& operator[] (std::size_t index);
@@ -28,6 +30,8 @@ namespace metII {
 
             std::size_t size () const;
             double dot (metII::Vector const& other) const;
+
+            void swap_elements(int pos1, int pos2); 
         
     };
 

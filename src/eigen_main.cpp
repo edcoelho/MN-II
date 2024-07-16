@@ -143,11 +143,23 @@ void test_matrices() {
     std::cout << "(Expected: 9.2 26.5 23.94)" << std::endl << std::endl;
 }
 
+void test_LU() {
+    metII::SquareMatrix mat(std::vector<std::vector<double>>({{1,2,3},{4,5,6},{7,8,9}})); 
+    std::pair<metII::SquareMatrix,metII::SquareMatrix> LU_pair = mat.get_LU_pair(); 
+    metII::SquareMatrix L =  LU_pair.first; 
+    metII::SquareMatrix U = LU_pair.second; 
+    print_matrix(L); 
+    std::cout << "\n"; 
+    print_matrix(U) ;
+}
+
 int main() {
 
-    test_vectors();
+    // test_vectors();
 
-    test_matrices();
+    // test_matrices();
+
+    test_LU(); 
 
     return EXIT_SUCCESS;
 }

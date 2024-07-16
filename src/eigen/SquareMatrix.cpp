@@ -38,6 +38,11 @@ metII::SquareMatrix::SquareMatrix(std::size_t size, double value, bool diagonal)
     
 }
 
+metII::SquareMatrix::SquareMatrix (std::vector<std::vector<double>> matrix) {
+    // TODO: confirmar se é realmente quadrada? 
+    this->data = matrix; 
+}
+
 double metII::SquareMatrix::operator() (std::size_t row, std::size_t column) const {
 
     if (row < 0 || row > this->size() || column < 0 || column > this->size()) {
@@ -226,4 +231,60 @@ std::size_t metII::SquareMatrix::size () const {
 
     return this->data.size();
 
+}
+
+void metII::SquareMatrix::swap_lines(int line1, int line2) {
+    std::vector<double> t_vec = this->data[line2];  
+    this->data[line2] = this->data[line1]; 
+    this->data[line1] = t_vec;   
+}
+
+/*Solve the LUx = b problem*/
+metII::Vector LU_solver(metII::SquareMatrix L, metII::SquareMatrix U, metII::Vector b) {
+    // Solves first Ly = b 
+
+    // Solves Ux = y and returns 
+}
+
+/*Assuming that the matrix is invertible, performs a LU decomposition*/
+std::pair<metII::SquareMatrix, metII::SquareMatrix> metII::SquareMatrix::get_LU_pair() const {
+    this->data; 
+    int n = this->size();
+    metII::SquareMatrix matrix_cpy(this->data); 
+    metII::SquareMatrix L(n, 1, true); 
+    metII::Vector permutation_vector(std::pair<int, int>(1, n)); 
+
+    for (int j = 0; j < n; j ++) {
+        double max_pivot = matrix_cpy.data[j][j]; 
+        int max_pivot_pos = j; 
+        // Partial pivoting to reduce roundoff errors
+        for (int i = j + 1; i < n; i++) {
+            if (matrix_cpy.data[i][j] > max_pivot) {
+                max_pivot = matrix_cpy.data[i][j]; 
+                max_pivot_pos = i; 
+            }
+        }
+        if (max_pivot == 0){
+            //error: all the column elements are 0
+        }
+        if (max_pivot_pos != j) {
+            //swap lines  
+            matrix_cpy.swap_lines(j, max_pivot_pos); 
+            permutation_vector.swap_elements(j, max_pivot_pos); 
+        }
+        
+        double pivot = matrix_cpy.data[j][j]; 
+
+        // Elimination
+        for (int i = j+1; i < n; i++) {
+            double l = matrix_cpy.data[i][j]/pivot; 
+            for (int k = j; k < n; k++) {
+                matrix_cpy.data[i][k] = matrix_cpy.data[i][k]- l*matrix_cpy.data[j][k]; 
+            }
+            // l goes to L matrix in [i][j] and we are building U by this subtractiosn
+            L.data[i][j] = l; 
+        }
+    }
+    
+    return std::pair<metII::SquareMatrix, metII::SquareMatrix> (L, matrix_cpy); 
 }

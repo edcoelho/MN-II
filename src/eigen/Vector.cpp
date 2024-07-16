@@ -13,6 +13,28 @@ metII::Vector::Vector (std::size_t size, double value) {
 
 }
 
+metII::Vector::Vector (std::pair<int, int> range) {
+    int size = range.first - range.second + 1; 
+
+    if (size <= 0) {
+
+        throw std::runtime_error("Error: Empty metII::Vector! Please ensure that vector size is greater than 0.");
+        
+    }
+
+    this->data = std::vector<double>(size); 
+    for (int i = 0, x = range.first; i< size; i++, x++) {
+        this->data[i] = x; 
+    }
+    
+}
+
+void metII::Vector::swap_elements(int pos1, int pos2) {
+    double t_element = this->data[pos1]; 
+    this->data[pos1] = this->data[pos2]; 
+    this->data[pos2] = t_element;  
+}
+
 double metII::Vector::operator[] (std::size_t index) const {
 
     if (index < 0 || index > this->size()) {

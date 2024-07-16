@@ -12,10 +12,13 @@ namespace metII {
 
             std::vector<std::vector<double>> data;
 
+            void swap_lines(int line1, int line2); 
+
         public:
             
             SquareMatrix (std::size_t size = 3);
             SquareMatrix (std::size_t size, double value, bool diagonal = false);
+            SquareMatrix (std::vector<std::vector<double>>); 
 
             double operator() (std::size_t row, std::size_t column) const;
             double& operator() (std::size_t row, std::size_t column);
@@ -28,6 +31,8 @@ namespace metII {
 
             bool operator == (metII::SquareMatrix const& other) const;
             bool operator != (metII::SquareMatrix const& other) const;
+
+            std::pair<metII::SquareMatrix, metII::SquareMatrix> get_LU_pair() const; 
 
             std::size_t size () const;
         
