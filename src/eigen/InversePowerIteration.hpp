@@ -10,6 +10,10 @@ namespace metII {
 
     class InversePowerIteration : public metII::PowerIteration {
 
+        private: 
+
+            metII::Vector LU_solver(metII::SquareMatrix L, metII::SquareMatrix U, metII::Vector permutation_vector, metII::Vector b); 
+
         public:
 
             InversePowerIteration ();

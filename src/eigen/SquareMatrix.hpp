@@ -32,7 +32,7 @@ namespace metII {
             bool operator == (metII::SquareMatrix const& other) const;
             bool operator != (metII::SquareMatrix const& other) const;
 
-            std::pair<metII::SquareMatrix, metII::SquareMatrix> get_LU_pair() const; 
+            std::pair<metII::SquareMatrix, metII::SquareMatrix> get_LU_pair(metII::Vector &permutation_vector) const; 
 
             std::size_t size () const;
         

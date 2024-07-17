@@ -247,30 +247,32 @@ metII::Vector LU_solver(metII::SquareMatrix L, metII::SquareMatrix U, metII::Vec
 }
 
 /*Assuming that the matrix is invertible, performs a LU decomposition*/
-std::pair<metII::SquareMatrix, metII::SquareMatrix> metII::SquareMatrix::get_LU_pair() const {
+std::pair<metII::SquareMatrix, metII::SquareMatrix> metII::SquareMatrix::get_LU_pair(metII::Vector &permutation_vector) const {
     this->data; 
     int n = this->size();
     metII::SquareMatrix matrix_cpy(this->data); 
     metII::SquareMatrix L(n, 1, true); 
-    metII::Vector permutation_vector(std::pair<int, int>(1, n)); 
 
     for (int j = 0; j < n; j ++) {
         double max_pivot = matrix_cpy.data[j][j]; 
         int max_pivot_pos = j; 
-        // Partial pivoting to reduce roundoff errors
+
+        // Partial pivoting to reduce roundoff errors 
         for (int i = j + 1; i < n; i++) {
-            if (matrix_cpy.data[i][j] > max_pivot) {
-                max_pivot = matrix_cpy.data[i][j]; 
+            if (std::abs(matrix_cpy.data[i][j]) > max_pivot) {
+                max_pivot = std::abs(matrix_cpy.data[i][j]); 
                 max_pivot_pos = i; 
             }
         }
-        if (max_pivot == 0){
-            //error: all the column elements are 0
+
+        if (max_pivot == 0) {
+            throw std::runtime_error("Matrix is singular and cannot be decomposed.");
         }
+
         if (max_pivot_pos != j) {
             //swap lines  
             matrix_cpy.swap_lines(j, max_pivot_pos); 
-            permutation_vector.swap_elements(j, max_pivot_pos); 
+            std::swap(permutation_vector[j], permutation_vector[max_pivot_pos]); 
         }
         
         double pivot = matrix_cpy.data[j][j]; 
@@ -281,7 +283,7 @@ std::pair<metII::SquareMatrix, metII::SquareMatrix> metII::SquareMatrix::get_LU_
             for (int k = j; k < n; k++) {
                 matrix_cpy.data[i][k] = matrix_cpy.data[i][k]- l*matrix_cpy.data[j][k]; 
             }
-            // l goes to L matrix in [i][j] and we are building U by this subtractiosn
+            // l goes to L matrix in [i][j] and we are building U by this subtraction
             L.data[i][j] = l; 
         }
     }

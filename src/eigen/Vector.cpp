@@ -1,5 +1,6 @@
 #include "eigen/Vector.hpp"
 #include <stdexcept>
+#include <cmath>
 
 metII::Vector::Vector (std::size_t size, double value) {
 
@@ -171,4 +172,8 @@ double metII::Vector::dot (metII::Vector const& other) const {
 
     return result;
 
+}
+
+metII::Vector metII::Vector::normalize () const {
+    return (*this)*(1/std::sqrt(this->dot(*this))); 
 }
