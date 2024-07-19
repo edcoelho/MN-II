@@ -30,7 +30,8 @@ namespace metII {
 
             std::size_t size () const;
             double dot (metII::Vector const& other) const;
-            metII::Vector normalize () const; 
+            double norm () const;
+            void normalize ();
 
             void swap_elements(int pos1, int pos2); 
         

@@ -13,7 +13,7 @@ namespace metII {
 
             PowerIteration ();
 
-            virtual std::pair<double, Vector> compute (metII::SquareMatrix matrix, double epsilon);
+            virtual std::pair<double, metII::Vector> compute (metII::SquareMatrix matrix, double epsilon = 1.0e-6);
 
     };
     
