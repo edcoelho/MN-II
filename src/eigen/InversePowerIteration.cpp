@@ -20,7 +20,7 @@ metII::Vector metII::InversePowerIteration::LU_solver(metII::SquareMatrix L, met
     // Ux = y part
     metII::Vector x(n); 
     for (int i  = n -1; i >= 0; i--) {
-        double sum = b[i]; 
+        double sum = y[i]; 
         for (int j = i + 1; j < n; j++) {
             sum -= U[i][j]*x[j];  
         } 
