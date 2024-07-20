@@ -4,6 +4,7 @@
 #include "eigen/PowerIteration.hpp"
 #include "eigen/InversePowerIteration.hpp"
 #include "eigen/ShiftedPowerIteration.hpp"
+#include <cmath>
 
 void print_vector (metII::Vector vector) {
 
@@ -229,8 +230,29 @@ void test_LU() {
 
 void test_InversePower() {
     metII::SquareMatrix A(std::vector<std::vector<double>>({{5,2,1},{2,3,1},{1,1,2}})); 
-    metII::InversePowerIteration inverse_power_iteration; 
-    double epsilon = 0.000000000000001; 
+    metII::InversePowerIteration inverse_power_iteration;
+
+    std::cout << "MatrixA\n"; print_matrix(A); std::cout << "\n";
+    metII::Vector previous_eigenvector(A.size()); 
+    for (int i = 1; i <= 25; i++) {
+        double epsilon = pow(10, -i); 
+        std::cout << "error = " << epsilon << "\n"; 
+        std::pair<double, metII::Vector> eigen_pair = inverse_power_iteration.compute(A, epsilon);
+        std::cout << "Eigenvalue of matrix A using inverse power iteraction: " << eigen_pair.first << "\n\n" ;
+        // std::cout << "Eigenvector of matrix A using inverse power iteraction: " << std::endl;
+        // print_vector(eigen_pair.second);
+        if (i > 1) {
+            std::cout << "\ndifference between 2 last eigenvectors\n"; 
+            print_vector(eigen_pair.second - previous_eigenvector); //observe o erro antes da estabilizacao. 
+        }
+        previous_eigenvector = eigen_pair.second; 
+        std::cout << std::endl;
+    } 
+    /*Observe que o numero de iterações está se estabilizando em 54*/ 
+    return; 
+
+    // metII::InversePowerIteration inverse_power_iteration; 
+    double epsilon = 0.00000000001; 
     std::pair<double, metII::Vector> results = inverse_power_iteration.compute(A, epsilon); 
     double eigenvalue = results.first; 
     metII::Vector eigenvector = results.second; 

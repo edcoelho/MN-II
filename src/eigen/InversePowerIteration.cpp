@@ -1,5 +1,6 @@
 #include "InversePowerIteration.hpp" 
 #include <cmath>
+#include <iostream>
 
 metII::InversePowerIteration::InversePowerIteration() {
 
@@ -54,6 +55,7 @@ std::pair<double, metII::Vector> metII::InversePowerIteration::compute(metII::Sq
 
     metII::Vector old_eigenvector(matrix.size(), 1);  
     double old_eigenvalue;  
+    int num_iter = 0;
     do {
         old_eigenvalue = eigenvalue; 
         old_eigenvector = eigenvector; 
@@ -85,8 +87,10 @@ std::pair<double, metII::Vector> metII::InversePowerIteration::compute(metII::Sq
             }
 
         }      
+        num_iter++;
 
     } while (error > epsilon); 
+    // std::cout << "number of iterations: " << num_iter << "\n";  
 
     return std::pair<double, metII::Vector> (1.0/eigenvalue, old_eigenvector); 
 }
