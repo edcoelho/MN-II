@@ -2,6 +2,8 @@
 #include "eigen/Vector.hpp"
 #include "eigen/SquareMatrix.hpp"
 #include "eigen/PowerIteration.hpp"
+#include "eigen/InversePowerIteration.hpp"
+#include "eigen/ShiftedPowerIteration.hpp"
 
 void print_vector (metII::Vector vector) {
 
@@ -193,15 +195,64 @@ void test_power_iterations () {
     std::cout << std::endl;
 
 }
-
+//TODO: something wrong with the permutation
 void test_LU() {
-    metII::SquareMatrix mat(std::vector<std::vector<double>>({{1,2,3},{4,5,6},{7,8,9}})); 
-    std::pair<metII::SquareMatrix,metII::SquareMatrix> LU_pair = mat.get_LU_pair(); 
+    metII::SquareMatrix mat(std::vector<std::vector<double>>({{1,-1,1,2},{-2,1,1,1},{2,-1,2,3},{-4,1,0,2}})); 
+    metII::Vector permutation_vector(std::pair<int, int>(0,mat.size() - 1));
+    std::pair<metII::SquareMatrix,metII::SquareMatrix> LU_pair = mat.get_LU_pair(permutation_vector); 
     metII::SquareMatrix L =  LU_pair.first; 
     metII::SquareMatrix U = LU_pair.second; 
+    std::cout << "L matrix\n"; 
     print_matrix(L); 
-    std::cout << "\n"; 
+    std::cout << "\nU matrix\n"; 
     print_matrix(U) ;
+    std::cout << "\npermutation vector\n"; 
+    print_vector(permutation_vector);
+
+    // Create permutation matrix P
+    size_t n = mat.size(); 
+    metII::SquareMatrix P(n);
+    for (size_t i = 0; i < n; i++) {
+        P(i, permutation_vector[i]) = 1.0;
+    }
+
+    // Resulting matrix PA
+    metII::SquareMatrix PA = P * mat;
+    std::cout << "Resulting matrix PA:\n"; 
+    print_matrix(PA);
+
+    // Reconstructed matrix from L and U
+    metII::SquareMatrix A_reconstructed = L * U;
+    std::cout << "Reconstructed matrix L * U:\n"; 
+    print_matrix(A_reconstructed);
+}
+
+void test_InversePower() {
+    metII::SquareMatrix A(std::vector<std::vector<double>>({{5,2,1},{2,3,1},{1,1,2}})); 
+    metII::InversePowerIteration inverse_power_iteration; 
+    double epsilon = 0.000000000000001; 
+    std::pair<double, metII::Vector> results = inverse_power_iteration.compute(A, epsilon); 
+    double eigenvalue = results.first; 
+    metII::Vector eigenvector = results.second; 
+
+    std::cout << "Matrix A:" << std::endl;
+    print_matrix(A);
+    std::cout << std::endl << std::endl;
+    eigenvector.normalize(); 
+    std::cout << "Eigenvalue of matrix A using inverse power iteraction: " << eigenvalue << "\n\n" ;
+    
+    std::cout << "Eigenvector of matrix A using power iteraction: " << std::endl;
+    print_vector(eigenvector);
+    std::cout << std::endl;
+
+    std::cout << "Matrix A times Eigenvector: " << std::endl;
+    print_vector(A * eigenvector);
+    std::cout << std::endl;
+
+    std::cout << "Eigenvalue times Eigenvector: " << std::endl;
+    print_vector(eigenvector * results.first);
+    std::cout << std::endl;
+
 }
 
 int main() {
@@ -210,9 +261,14 @@ int main() {
 
     // test_matrices();
 
-    test_matrices();
+    // test_matrices();
 
-    test_power_iterations();
+    // test_power_iterations();
+
+    // test_LU(); 
+    test_InversePower(); 
+
+
 
     return EXIT_SUCCESS;
 }

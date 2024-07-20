@@ -28,6 +28,7 @@ namespace metII {
             metII::SquareMatrix operator* (double const& scalar) const;
             metII::SquareMatrix operator* (metII::SquareMatrix const& other) const;
             metII::Vector operator* (metII::Vector const& vector) const;
+            void transpose () ;  
 
             bool operator == (metII::SquareMatrix const& other) const;
             bool operator != (metII::SquareMatrix const& other) const;

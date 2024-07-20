@@ -15,7 +15,7 @@ metII::Vector::Vector (std::size_t size, double value) {
 }
 
 metII::Vector::Vector (std::pair<int, int> range) {
-    int size = range.first - range.second + 1; 
+    int size = range.second - range.first + 1; 
 
     if (size <= 0) {
 
