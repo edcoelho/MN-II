@@ -14,7 +14,7 @@ namespace metII {
 
             ShiftedPowerIteration ();
 
-            std::pair<double, Vector> compute (metII::SquareMatrix matrix, double epsilon) override;
+            std::pair<double, Vector> compute (metII::SquareMatrix matrix, double shifting_factor, double epsilon) ;
 
     };
     
