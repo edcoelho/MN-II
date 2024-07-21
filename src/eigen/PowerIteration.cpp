@@ -1,14 +1,21 @@
 #include "eigen/PowerIteration.hpp"
+#include <stdexcept>
 #include <cmath>
 
 metII::PowerIteration::PowerIteration () {}
 
-std::pair<double, metII::Vector> metII::PowerIteration::compute (metII::SquareMatrix matrix, double epsilon) {
+std::pair<double, metII::Vector> metII::PowerIteration::compute (metII::Matrix matrix, double epsilon) const {
+
+    if (matrix.m_size() != matrix.n_size()) {
+
+        throw std::runtime_error("Error in std::pair<double, metII::Vector> metII::PowerIteration::compute(metII::Matrix, double) const: Power iteration is not implemented for non-square matrices! Please ensure that the number of columns in the matrix equals the number of rows.");
+
+    }
 
     double relative_error = 1.0, old_eigenvalue = 0.0, new_eigenvalue = 0.0;
     std::size_t num_zero_iterations = 0;
     const std::size_t max_zero_iterations = 10;
-    metII::Vector old_eigenvector(matrix.size(), 1.0), new_eigenvector(matrix.size(), 1.0);
+    metII::Vector old_eigenvector(matrix.m_size(), 1.0), new_eigenvector(matrix.m_size(), 1.0);
 
     while (relative_error > epsilon) {
 

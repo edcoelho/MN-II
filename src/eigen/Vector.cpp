@@ -30,10 +30,12 @@ metII::Vector::Vector (std::pair<int, int> range) {
     
 }
 
-void metII::Vector::swap_elements(int pos1, int pos2) {
+void metII::Vector::swap_elements(std::size_t pos1, std::size_t pos2) {
+
     double t_element = this->data[pos1]; 
     this->data[pos1] = this->data[pos2]; 
-    this->data[pos2] = t_element;  
+    this->data[pos2] = t_element;
+
 }
 
 double metII::Vector::operator[] (std::size_t index) const {
@@ -189,5 +191,13 @@ void metII::Vector::normalize () {
         this->data[i] = this->data[i] / vector_norm;
 
     }
+
+}
+
+metII::Vector metII::Vector::normalized () const {
+
+    metII::Vector result = *this;
+    result.normalize();
+    return result;
 
 }

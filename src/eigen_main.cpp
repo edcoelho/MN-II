@@ -1,6 +1,6 @@
 #include <iostream>
 #include "eigen/Vector.hpp"
-#include "eigen/SquareMatrix.hpp"
+#include "eigen/Matrix.hpp"
 #include "eigen/PowerIteration.hpp"
 #include "eigen/InversePowerIteration.hpp"
 #include "eigen/ShiftedPowerIteration.hpp"
@@ -16,11 +16,11 @@ void print_vector (metII::Vector vector) {
 
 }
 
-void print_matrix (metII::SquareMatrix matrix) {
+void print_matrix (metII::Matrix matrix) {
 
-    for (std::size_t row = 0; row < matrix.size(); row++) {
+    for (std::size_t row = 0; row < matrix.m_size(); row++) {
 
-        for (std::size_t column = 0; column < matrix.size(); column++) {
+        for (std::size_t column = 0; column < matrix.n_size(); column++) {
 
             std::cout << matrix(row, column) << " ";
 
@@ -98,18 +98,18 @@ void test_vectors () {
 
 void test_matrices() {
     // Testing constructor and operator ()
-    metII::SquareMatrix m1(3);  // 3x3 matrix initialized with zeros (default)
+    metII::Matrix m1(3, 3);  // 3x3 matrix initialized with zeros (default)
     m1(0, 0) = 1.0;
     m1(1, 1) = 2.0;
     m1(2, 2) = 3.0;
 
-    metII::SquareMatrix m2(3, 1.0, true);  // Diagonal 3x3 matrix with 1.0 on the diagonal
+    metII::Matrix m2(3, 3, 1.0, true);  // Diagonal 3x3 matrix with 1.0 on the diagonal
 
     // Testing operators +, -, *, ==
-    metII::SquareMatrix sum = m1 + m2;
-    metII::SquareMatrix diff = m1 - m2;
-    metII::SquareMatrix scalar_mul = m1 * 2.0;
-    metII::SquareMatrix matrix_mul = m1 * m2;
+    metII::Matrix sum = m1 + m2;
+    metII::Matrix diff = m1 - m2;
+    metII::Matrix scalar_mul = m1 * 2.0;
+    metII::Matrix matrix_mul = m1 * m2;
 
     std::cout << "Matrix m1:" << std::endl;
     print_matrix(m1);
@@ -161,7 +161,7 @@ void test_power_iterations () {
 
     metII::PowerIteration p;
     std::pair<double, metII::Vector> results;
-    metII::SquareMatrix A(3);
+    metII::Matrix A(3, 3);
 
     A(0, 0) = 5.0;
     A(0, 1) = 2.0;
@@ -198,11 +198,11 @@ void test_power_iterations () {
 }
 //TODO: something wrong with the permutation
 void test_LU() {
-    metII::SquareMatrix mat(std::vector<std::vector<double>>({{1,-1,1,2},{-2,1,1,1},{2,-1,2,3},{-4,1,0,2}})); 
-    metII::Vector permutation_vector(std::pair<int, int>(0,mat.size() - 1));
-    std::pair<metII::SquareMatrix,metII::SquareMatrix> LU_pair = mat.get_LU_pair(permutation_vector); 
-    metII::SquareMatrix L =  LU_pair.first; 
-    metII::SquareMatrix U = LU_pair.second; 
+    metII::Matrix mat(std::vector<std::vector<double>>({{1,-1,1,2},{-2,1,1,1},{2,-1,2,3},{-4,1,0,2}})); 
+    metII::Vector permutation_vector(std::pair<int, int>(0,mat.m_size() - 1));
+    std::pair<metII::Matrix,metII::Matrix> LU_pair = mat.get_LU_pair(permutation_vector); 
+    metII::Matrix L =  LU_pair.first; 
+    metII::Matrix U = LU_pair.second; 
     std::cout << "L matrix\n"; 
     print_matrix(L); 
     std::cout << "\nU matrix\n"; 
@@ -211,29 +211,29 @@ void test_LU() {
     print_vector(permutation_vector);
 
     // Create permutation matrix P
-    size_t n = mat.size(); 
-    metII::SquareMatrix P(n);
+    size_t n = mat.m_size(); 
+    metII::Matrix P(n, n);
     for (size_t i = 0; i < n; i++) {
         P(i, permutation_vector[i]) = 1.0;
     }
 
     // Resulting matrix PA
-    metII::SquareMatrix PA = P * mat;
+    metII::Matrix PA = P * mat;
     std::cout << "Resulting matrix PA:\n"; 
     print_matrix(PA);
 
     // Reconstructed matrix from L and U
-    metII::SquareMatrix A_reconstructed = L * U;
+    metII::Matrix A_reconstructed = L * U;
     std::cout << "Reconstructed matrix L * U:\n"; 
     print_matrix(A_reconstructed);
 }
 
 void test_InversePower() {
-    metII::SquareMatrix A(std::vector<std::vector<double>>({{5,2,1},{2,3,1},{1,1,2}})); 
+    metII::Matrix A(std::vector<std::vector<double>>({{5,2,1},{2,3,1},{1,1,2}})); 
     metII::InversePowerIteration inverse_power_iteration;
 
     std::cout << "MatrixA\n"; print_matrix(A); std::cout << "\n";
-    metII::Vector previous_eigenvector(A.size()); 
+    metII::Vector previous_eigenvector(A.m_size()); 
     for (int i = 1; i <= 25; i++) {
         double epsilon = pow(10, -i); 
         std::cout << "error = " << epsilon << "\n"; 
@@ -285,10 +285,10 @@ int main() {
 
     // test_matrices();
 
-    // test_power_iterations();
+     test_power_iterations();
 
     // test_LU(); 
-    test_InversePower(); 
+    //test_InversePower(); 
 
 
 

@@ -2,7 +2,7 @@
 #define METII_POWER_ITERATION_HPP_
 
 #include <utility>
-#include "eigen/SquareMatrix.hpp"
+#include "eigen/Matrix.hpp"
 #include "eigen/Vector.hpp"
 
 namespace metII {
@@ -13,7 +13,7 @@ namespace metII {
 
             PowerIteration ();
 
-            virtual std::pair<double, metII::Vector> compute (metII::SquareMatrix matrix, double epsilon = 1.0e-6);
+            virtual std::pair<double, metII::Vector> compute (metII::Matrix matrix, double epsilon = 1.0e-6) const;
 
     };
     
