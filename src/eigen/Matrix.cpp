@@ -168,7 +168,7 @@ metII::Matrix metII::Matrix::operator* (metII::Matrix const& other) const {
 
     }
 
-    metII::Matrix new_matrix(this->m_size(), this->n_size());
+    metII::Matrix new_matrix(this->m_size(), other.n_size());
 
     for (std::size_t i = 0; i < this->m_size(); i++) {
 
