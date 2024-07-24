@@ -115,6 +115,30 @@ metII::Vector metII::Vector::operator* (double const& scalar) const {
 
 }
 
+metII::Matrix metII::Vector::operator* (metII::Matrix const& matrix) const {
+
+    if (matrix.m_size() != 1) {
+
+        throw std::runtime_error("Error in (metII::Matrix) metII::Vector::operator*(metII::Matrix const&) const: Incompatible [column] vector and matrix multiplication! Please ensure that the matrix has only 1 row.");
+
+    }
+
+    metII::Matrix new_matrix(this->size(), matrix.n_size());
+
+    for (std::size_t i = 0; i < this->size(); i++) {
+
+        for (std::size_t j = 0; j < matrix.n_size(); j++) {
+
+            new_matrix(i, j) += this->data[i] * matrix(0, j);
+
+        }
+
+    }
+
+    return new_matrix;
+
+}
+
 bool metII::Vector::operator== (metII::Vector const& other) const {
 
     bool are_vectors_equal = true;
@@ -199,5 +223,11 @@ metII::Vector metII::Vector::normalized () const {
     metII::Vector result = *this;
     result.normalize();
     return result;
+
+}
+
+metII::Matrix metII::Vector::transpose () const {
+
+    return metII::Matrix({this->data});
 
 }

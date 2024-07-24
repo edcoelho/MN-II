@@ -2,6 +2,7 @@
 #define MET_II_VECTOR_HPP_
 
 #include <vector>
+#include "eigen/Matrix.hpp"
 
 namespace metII {
 
@@ -24,6 +25,7 @@ namespace metII {
             metII::Vector operator+ (metII::Vector const& other) const;
             metII::Vector operator- (metII::Vector const& other) const;
             metII::Vector operator* (double const& scalar) const;
+            metII::Matrix operator* (metII::Matrix const& matrix) const;
 
             bool operator== (metII::Vector const& other) const;
             bool operator!= (metII::Vector const& other) const;
@@ -33,6 +35,7 @@ namespace metII {
             double norm () const;
             void normalize ();
             metII::Vector normalized () const;
+            metII::Matrix transpose () const;
 
             void swap_elements(std::size_t pos1, std::size_t pos2); 
         
