@@ -5,6 +5,7 @@
 #include "eigen/InversePowerIteration.hpp"
 #include "eigen/ShiftedPowerIteration.hpp"
 #include "eigen/Householder.hpp"
+#include "eigen/QR.hpp"
 #include <cmath>
 
 void print_vector (metII::Vector vector) {
@@ -306,6 +307,34 @@ void test_householder () {
 
 }
 
+void test_qr () {
+
+    metII::Matrix matrix({
+
+        {40.0, 8.0, 4.0, 2.0, 1.0},
+        {8.0, 30.0, 12.0, 6.0, 2.0},
+        {4.0, 12.0, 20.0, 1.0, 2.0},
+        {2.0, 6.0, 1.0, 25.0, 4.0},
+        {1.0, 2.0, 2.0, 4.0, 5.0}
+
+    });
+
+    std::pair<metII::Matrix, metII::Vector> qr_pair = metII::QR(1.0e-10).compute(matrix);
+
+    std::cout << "Matrix: " << std::endl;
+    print_matrix(matrix);
+    std::cout << std::endl;
+
+    std::cout << "Eigenvectors (Q) matrix: " << std::endl;
+    print_matrix(qr_pair.first);
+    std::cout << std::endl;
+
+    std::cout << "Eigenvalues matrix: " << std::endl;
+    print_vector(qr_pair.second);
+    std::cout << std::endl;
+
+}
+
 int main() {
 
     // test_vectors();
@@ -319,7 +348,9 @@ int main() {
     // test_LU(); 
     //test_InversePower(); 
 
-    test_householder();
+    //test_householder();
+
+    test_qr();
 
     return EXIT_SUCCESS;
 }

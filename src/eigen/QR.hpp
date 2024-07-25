@@ -11,14 +11,21 @@ namespace metII {
 
         private:
 
+            double epsilon;
+
             metII::Matrix jacobi_matrix (metII::Matrix symmetric_matrix, std::size_t row, std::size_t column) const;
 
         public:
 
+            QR (double _epsilon = 1e-6);
+
+            double get_epsilon () const;
+            void set_epsilon (double _epsilon);
+
             std::pair<metII::Matrix, metII::Matrix> decompose (metII::Matrix symmetric_matrix) const;
 
-            // Returns the accumulated Q matrices products and a vector with the eigenvalues.
-            std::pair<metII::Matrix, metII::Vector> compute (metII::Matrix symmetric_matrix, double epsilon = 1e-6) const;
+            // Returns a matrix with the eigenvectors as columns and a vector with the eigenvalues.
+            std::pair<metII::Matrix, metII::Vector> compute (metII::Matrix symmetric_matrix) const;
 
     };
 
