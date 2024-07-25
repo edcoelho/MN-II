@@ -6,6 +6,8 @@
 
 namespace metII {
 
+    class Matrix;
+
     // Column vector
     class Vector {
 

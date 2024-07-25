@@ -4,6 +4,7 @@
 #include "eigen/PowerIteration.hpp"
 #include "eigen/InversePowerIteration.hpp"
 #include "eigen/ShiftedPowerIteration.hpp"
+#include "eigen/Householder.hpp"
 #include <cmath>
 
 void print_vector (metII::Vector vector) {
@@ -277,6 +278,34 @@ void test_InversePower() {
 
 }
 
+void test_householder () {
+
+    metII::Matrix matrix({
+
+        {40.0, 8.0, 4.0, 2.0, 1.0},
+        {8.0, 30.0, 12.0, 6.0, 2.0},
+        {4.0, 12.0, 20.0, 1.0, 2.0},
+        {2.0, 6.0, 1.0, 25.0, 4.0},
+        {1.0, 2.0, 2.0, 4.0, 5.0}
+
+    });
+
+    std::pair<metII::Matrix, metII::Matrix> householder_pair = metII::Householder().compute(matrix);
+
+    std::cout << "Matrix: " << std::endl;
+    print_matrix(matrix);
+    std::cout << std::endl;
+
+    std::cout << "Householder matrix: " << std::endl;
+    print_matrix(householder_pair.first);
+    std::cout << std::endl;
+
+    std::cout << "Tridiagonal matrix: " << std::endl;
+    print_matrix(householder_pair.second);
+    std::cout << std::endl;
+
+}
+
 int main() {
 
     // test_vectors();
@@ -285,12 +314,12 @@ int main() {
 
     // test_matrices();
 
-     test_power_iterations();
+    // test_power_iterations();
 
     // test_LU(); 
     //test_InversePower(); 
 
-
+    test_householder();
 
     return EXIT_SUCCESS;
 }

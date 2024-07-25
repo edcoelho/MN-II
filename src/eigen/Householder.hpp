@@ -10,7 +10,7 @@ namespace metII {
 
         private:
 
-            metII::Matrix householder_matrix (metII::Matrix symmetric_matrix, std::size_t column);
+            metII::Matrix householder_matrix (metII::Matrix symmetric_matrix, std::size_t column) const;
 
         public:
 

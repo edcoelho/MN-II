@@ -61,6 +61,8 @@ metII::Matrix::Matrix (std::vector<std::vector<double>> matrix) {
     if (valid_matrix) {
 
         this->data = matrix;
+        this->m = matrix.size();
+        this->n = matrix[0].size();
 
     } else {
 
