@@ -8,7 +8,11 @@ metII::RungeKutta::RungeKutta() {
 
 metII::Vector metII::RungeKutta::second_order_step(double delta, double t, metII::Vector last_state, std::function<metII::Vector(metII::Vector, double)> f) {
     metII::Euler euler_method; 
-    metII::Vector estimated_next_state = euler_method.compute(delta,0,0,last_state, f); // one iteration of euler
+    metII::Matrix estimate_next_state_matrix = euler_method.compute(delta,0,0,last_state, f); 
+    metII::Vector estimated_next_state; // one iteration of euler
+    for (int i = 0; i < estimate_next_state_matrix.m_size(); i++) {
+        estimated_next_state[i] = estimate_next_state_matrix(i, 1); 
+    }
     return last_state + (f(last_state,t) + f(estimated_next_state, t))*(delta/2);
 }
 
