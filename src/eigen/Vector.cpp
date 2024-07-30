@@ -30,6 +30,18 @@ metII::Vector::Vector (std::pair<int, int> range) {
     
 }
 
+metII::Vector::Vector (std::vector<double> vector) {
+
+    if (vector.size() == 0) {
+
+        throw std::runtime_error("Error: Empty metII::Vector! Please ensure that vector size is greater than 0.");
+
+    }
+
+    this->data = vector;
+
+}
+
 void metII::Vector::swap_elements(std::size_t pos1, std::size_t pos2) {
 
     double t_element = this->data[pos1]; 

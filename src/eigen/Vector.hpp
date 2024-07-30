@@ -20,6 +20,7 @@ namespace metII {
             Vector (std::size_t size = 3, double value = 0.0);
             /*Creates a vector in the [range.first, range.second] inclusive integer interval*/
             Vector (std::pair<int, int> range); 
+            Vector (std::vector<double> vector);
 
             double operator[] (std::size_t index) const;
             double& operator[] (std::size_t index);
