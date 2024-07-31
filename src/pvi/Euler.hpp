@@ -23,6 +23,7 @@ namespace metII {
             Euler (std::function<metII::Vector(metII::Vector, double)> _F, metII::Vector _initial_state, double _delta, double _initial_t = 0.0);
 
             std::function<metII::Vector(metII::Vector, double)> get_F() const;
+            const std::function<metII::Vector(metII::Vector, double)>& get_ref_F() const;
             void set_F(std::function<metII::Vector(metII::Vector, double)> _F);
 
             metII::Vector get_initial_state() const;

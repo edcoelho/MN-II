@@ -16,6 +16,12 @@ std::function<metII::Vector(metII::Vector, double)> metII::Euler::get_F() const 
 
 }
 
+const std::function<metII::Vector(metII::Vector, double)>& metII::Euler::get_ref_F() const {
+
+    return this->F;
+
+}
+
 void metII::Euler::set_F(std::function<metII::Vector(metII::Vector, double)> _F) {
 
     this->F = _F;

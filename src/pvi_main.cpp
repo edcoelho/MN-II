@@ -1,4 +1,5 @@
 #include "pvi/ExplicitEuler.hpp"
+#include "pvi/ImplicitEuler.hpp"
 #include <iostream>
 
 //exemplo 1 das notas de aula
@@ -85,8 +86,53 @@ void test_explicit_euler_states_until_value () {
 
 }
 
+void test_implicit_euler_state () {
+
+    metII::Vector s_0(1, 2);
+    double delta = 0.00001, t_f = 1;
+    metII::ImplicitEuler euler_method(ivp_1, s_0, delta);
+    metII::Vector final_state = euler_method.compute_state(t_f);
+    print_vector(final_state);
+
+}
+
+void test_implicit_euler_states () {
+
+    metII::Vector s_0(1, 2);
+    double delta = 0.00001, t_f = 1;
+    metII::ImplicitEuler euler_method(ivp_1, s_0, delta);
+    std::vector<metII::Vector> states = euler_method.compute_states(t_f);
+
+    print_states(states, delta);
+
+}
+
+void test_implicit_euler_state_with_value () {
+
+    metII::Vector s_0(std::vector<double>({150.0, 3.0}));
+    double delta = 0.1;
+    metII::ImplicitEuler euler_method(ivp_2, s_0, delta);
+    std::pair<metII::Vector, double> state_and_time = euler_method.compute_state_with_value(0.0);
+
+    std::cout << "State at time t = " << state_and_time.second << ": " << std::endl;
+    print_vector(state_and_time.first);
+
+}
+
+void test_implicit_euler_states_until_value () {
+
+    metII::Vector s_0(std::vector<double>({150.0, 3.0}));
+    double delta = 0.1;
+    metII::ImplicitEuler euler_method(ivp_2, s_0, delta);
+    std::vector<metII::Vector> states = euler_method.compute_states_until_value(0.0, 100000000000000);
+
+    print_states(states, delta);
+
+}
+
 int main () {
 
-    test_explicit_euler_state_with_value();
+    test_explicit_euler_state();
+    test_implicit_euler_state();
 
 }
