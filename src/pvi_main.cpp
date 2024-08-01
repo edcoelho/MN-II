@@ -1,5 +1,5 @@
-#include "pvi/ExplicitEuler.hpp"
-#include "pvi/ImplicitEuler.hpp"
+#include "ivp/ExplicitEuler.hpp"
+#include "ivp/ImplicitEuler.hpp"
 #include <iostream>
 
 //exemplo 1 das notas de aula

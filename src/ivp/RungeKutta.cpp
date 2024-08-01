@@ -1,5 +1,5 @@
-#include "RungeKutta.hpp"
-#include "Euler.hpp" 
+#include "ivp/RungeKutta.hpp"
+#include "ivp/Euler.hpp" 
 #include <cmath>
 
 metII::RungeKutta::RungeKutta() {

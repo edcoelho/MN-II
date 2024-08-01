@@ -1,7 +1,7 @@
-#ifndef RUNGE_KUTTA_HPP 
-#define RUNGE_KUTTA_HPP
+#ifndef METII_RUNGE_KUTTA_HPP 
+#define METII_RUNGE_KUTTA_HPP
 
-#include "Vector.hpp"
+#include "eigen/Vector.hpp"
 #include <functional>
 
 namespace metII {

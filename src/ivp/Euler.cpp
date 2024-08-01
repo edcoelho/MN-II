@@ -1,4 +1,4 @@
-#include "Euler.hpp"
+#include "ivp/Euler.hpp"
 #include <cmath>
 
 metII::Euler::Euler (std::function<metII::Vector(metII::Vector, double)> _F, metII::Vector _initial_state, double _delta, double _initial_t) {
