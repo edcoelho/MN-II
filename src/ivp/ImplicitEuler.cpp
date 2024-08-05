@@ -82,7 +82,7 @@ metII::Vector metII::ImplicitEuler::new_state_equation_prime (const metII::Vecto
 
 }
 
-metII::ImplicitEuler::ImplicitEuler (std::function<metII::Vector(metII::Vector, double)> _F, metII::Vector _initial_state, double _delta, double _initial_t, double _root_epsilon, double _derivative_epsilon) : metII::Euler(_F, _initial_state, _delta, _initial_t) {
+metII::ImplicitEuler::ImplicitEuler (std::function<metII::Vector(metII::Vector, double)> _F, metII::Vector _initial_state, double _delta, double _initial_t, double _root_epsilon, double _derivative_epsilon) : metII::SimpleStep(_F, _initial_state, _delta, _initial_t) {
 
     this->root_epsilon = _root_epsilon;
     this->derivative_epsilon = _derivative_epsilon;

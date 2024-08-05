@@ -1,54 +1,67 @@
 #include "ivp/RungeKutta.hpp"
-#include "ivp/Euler.hpp" 
+#include "ivp/ExplicitEuler.hpp"
 #include <cmath>
+#include <stdexcept>
+#include <vector>
 
-metII::RungeKutta::RungeKutta() {
+metII::Vector metII::RungeKutta::step (double curr_t, metII::Vector curr_state) const {
 
-}
+    std::vector<metII::Vector> estimated_states;
+    metII::Vector next_state;
+    metII::ExplicitEuler explicit_euler(this->get_F(), curr_state, this->get_delta(), curr_t);
+    double delta_prime;
 
-metII::Vector metII::RungeKutta::second_order_step(double delta, double t, metII::Vector last_state, std::function<metII::Vector(metII::Vector, double)> f) {
-    metII::Euler euler_method; 
-    metII::Vector estimated_next_state = euler_method.explicit_step(delta, t, last_state,f);  
-    
-    return last_state + (f(last_state,t) + f(estimated_next_state, t))*(delta/2);
-}
+    if (this->get_order() == 2) {
 
-metII::Vector metII::RungeKutta::third_order_step(double delta, double t, metII::Vector last_state, std::function<metII::Vector(metII::Vector, double)> f) {
-    metII::Euler euler_method; 
-}
+        estimated_states = explicit_euler.compute_states(curr_t + this->get_delta());
+        next_state = curr_state + (this->get_ref_F()(curr_state, curr_t) + this->get_ref_F()(estimated_states[1], curr_t + this->get_delta())) * (this->get_delta()/2.0);
 
-metII::Vector metII::RungeKutta::fourth_order_step(double delta, double t, metII::Vector last_state, std::function<metII::Vector(metII::Vector, double)> f) {
+    } else if (this->get_order() == 3) {
 
-}
+        delta_prime = this->get_delta()/2.0;
+        explicit_euler.set_delta(delta_prime);
+        estimated_states = explicit_euler.compute_states(curr_t + this->get_delta());
+        next_state = curr_state + (this->get_ref_F()(curr_state, curr_t) + this->get_ref_F()(estimated_states[1], curr_t + delta_prime)*4.0 + this->get_ref_F()(estimated_states[2], curr_t + this->get_delta())) * (this->get_delta()/6.0);
 
-void fill_columns (metII::Matrix state_matrix, metII::Vector curr_state, int num_lines, int curr_column) {
-    for (int i = 0; i < num_lines; i++) {
-        state_matrix(i,curr_column) = curr_state[i]; 
-    }
-}
+    } else {
 
-metII::Matrix metII::RungeKutta::compute (int order, double delta, double initial_t, double final_t, metII::Vector initial_state, std::function<metII::Vector(metII::Vector, double)> f, bool is_explicit_step) {
-    metII::Vector curr_state = initial_state; 
-    int num_columns = std::floor((final_t - initial_t)/delta) + 1 ; 
-    int num_lines = curr_state.size(); 
-    metII::Matrix state_matrix(num_lines, num_columns); 
-    
-    int curr_column = 0; 
-    fill_columns (state_matrix, curr_state, num_lines, curr_column++); 
-    for (double t = initial_t; t <= final_t; t += delta) {
-        if (order == 2) {
-            curr_state = second_order_step(delta, t, curr_state, f); 
-        }
+        delta_prime = this->get_delta()/3.0;
+        explicit_euler.set_delta(delta_prime);
+        estimated_states = explicit_euler.compute_states(curr_t + this->get_delta());
+        next_state = curr_state + (this->get_ref_F()(curr_state, curr_t) + this->get_ref_F()(estimated_states[1], curr_t + delta_prime)*3.0 + this->get_ref_F()(estimated_states[2], curr_t + 2.0*delta_prime)*3.0 + this->get_ref_F()(estimated_states[3], curr_t + this->get_delta())) * (this->get_delta()/8.0);
 
-        if (order == 3) {
-            curr_state = third_order_step(delta, t, curr_state, f); 
-        }
-
-        if (order == 4) {
-            curr_state = fourth_order_step(delta, t, curr_state, f); 
-        }
-        fill_columns (state_matrix, curr_state, num_lines, curr_column++); 
     }
 
-    return state_matrix; 
+    return next_state;
+
+}
+
+metII::RungeKutta::RungeKutta (std::size_t _order, std::function<metII::Vector(metII::Vector, double)> _F, metII::Vector _initial_state, double _delta, double _initial_t) : metII::SimpleStep(_F, _initial_state, _delta, _initial_t) {
+
+    if (_order < 2 || _order > 4) {
+
+        throw std::runtime_error("Error in metII::RungeKutta::RungeKutta(std::size_t, std::function<metII::Vector(metII::Vector, double)>, metII::Vector, double, double): Invalid order! Please ensure that the order is 2, 3 or 4.");
+
+    }
+
+
+    this->order = _order;
+
+}
+
+std::size_t metII::RungeKutta::get_order () const {
+
+    return this->order;
+
+}
+void metII::RungeKutta::set_order (std::size_t _order) {
+
+    if (_order < 2 || _order > 4) {
+
+        throw std::runtime_error("Error in (void) metII::RungeKutta::set_order(std::size_t): Invalid order! Please ensure that the order is 2, 3 or 4.");
+
+    }
+
+    this->order = _order;
+
 }

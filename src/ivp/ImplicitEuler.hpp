@@ -1,11 +1,11 @@
 #ifndef METII_IMPLICIT_EULER_HPP
 #define METII_IMPLICIT_EULER_HPP
 
-#include "ivp/Euler.hpp"
+#include "ivp/SimpleStep.hpp"
 
 namespace metII {
  
-    class ImplicitEuler : public metII::Euler {
+    class ImplicitEuler : public metII::SimpleStep {
 
         private:
 

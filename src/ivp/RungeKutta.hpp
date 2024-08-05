@@ -1,23 +1,32 @@
 #ifndef METII_RUNGE_KUTTA_HPP 
 #define METII_RUNGE_KUTTA_HPP
 
+#include "ivp/SimpleStep.hpp"
 #include "eigen/Vector.hpp"
 #include <functional>
 
 namespace metII {
-    class RungeKutta {
-        private: 
-            metII::Vector second_order_step(double delta, double t, metII::Vector last_state, std::function<metII::Vector(metII::Vector, double)> f); 
 
-            metII::Vector third_order_step(double delta, double t, metII::Vector last_state, std::function<metII::Vector(metII::Vector, double)> f); 
+    class RungeKutta : public metII::SimpleStep {
 
-            metII::Vector fourth_order_step(double delta, double t, metII::Vector last_state, std::function<metII::Vector(metII::Vector, double)> f); 
+        private:
 
-        public: 
-            RungeKutta();
+            std::function<metII::Vector(metII::Vector, double)> F;
+            metII::Vector initial_state;
+            double initial_t, delta;
+            std::size_t order;
 
-            metII::Matrix compute (int order, double delta, double initial_t, double final_t, metII::Vector initial_state, std::function<metII::Vector(metII::Vector, double)> f, bool is_explicit_step = true);
+            metII::Vector step (double curr_t, metII::Vector curr_state) const override;
+
+        public:
+
+            std::size_t get_order () const;
+            void set_order (std::size_t _order);
+
+            RungeKutta (std::size_t order, std::function<metII::Vector(metII::Vector, double)> _F, metII::Vector _initial_state, double _delta, double _initial_t = 0.0);
+
     };
+
 }
 
 #endif
