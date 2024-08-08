@@ -6,6 +6,7 @@
 #include "eigen/ShiftedPowerIteration.hpp"
 #include "eigen/Householder.hpp"
 #include "eigen/QR.hpp"
+#include "eigen/SVD.hpp"
 #include <cmath>
 
 void print_vector (metII::Vector vector) {
@@ -198,7 +199,7 @@ void test_power_iterations () {
     std::cout << std::endl;
 
 }
-//TODO: something wrong with the permutation
+
 void test_LU() {
     metII::Matrix mat(std::vector<std::vector<double>>({{1,-1,1,2},{-2,1,1,1},{2,-1,2,3},{-4,1,0,2}})); 
     metII::Vector permutation_vector(std::pair<int, int>(0,mat.m_size() - 1));
@@ -335,6 +336,53 @@ void test_qr () {
 
 }
 
+void test_svd() {
+    metII::Matrix matriz_4x5 ({
+        {1, 0, 0, 0, 2},
+        {0, 0, 3, 0, 0},
+        {0, 0, 0, 0, 0},
+        {0, 2, 0, 0, 0},
+    }); //passou
+
+    metII::Matrix matriz_4x2 ({
+        {-2,1},
+        {-1,0}, 
+        {0,0},
+        {1,2}
+    });
+
+    metII::Matrix matriz_3x2 ({
+        {1,2}, 
+        {1,1}, 
+        {1,-1}
+    }); //passou
+
+    metII::Matrix matriz_2x3 ( {
+        {0,1,3}, 
+        {1,0,2}
+    }); // passou, mas onde seria 0, retornou valores muito proximos de 0 
+
+    metII::Matrix matriz_2x2 ({
+        {2,1},
+        {-1,2}
+    });  //passou
+
+
+
+    metII::SVD svd_method; 
+    std::tuple <metII::Matrix, metII::Matrix, metII::Matrix> svd_decomposition = svd_method.decompose(matriz_4x2);  
+    metII::Matrix U = std::get<0>(svd_decomposition); 
+    metII::Matrix sigma = std::get<1>(svd_decomposition); 
+    metII::Matrix V = std::get<2>(svd_decomposition); 
+
+    print_matrix(U);std::cout << "\n"; 
+    print_matrix(sigma);std::cout << "\n";
+    print_matrix(V);std::cout << "\n";
+
+    std::cout << "multiplicadas\n"; 
+    print_matrix(U*sigma*V.transpose()); 
+}
+
 int main() {
 
     // test_vectors();
@@ -350,7 +398,9 @@ int main() {
 
     //test_householder();
 
-    test_qr();
+    // test_qr();
+
+    test_svd(); 
 
     return EXIT_SUCCESS;
 }
