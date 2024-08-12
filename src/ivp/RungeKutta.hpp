@@ -11,9 +11,6 @@ namespace metII {
 
         private:
 
-            std::function<metII::Vector(metII::Vector, double)> F;
-            metII::Vector initial_state;
-            double initial_t, delta;
             std::size_t order;
 
             metII::Vector step (double curr_t, metII::Vector curr_state) const override;

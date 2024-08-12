@@ -2,6 +2,7 @@
 #define METII_SIMPLE_STEP_HPP
 
 #include "eigen/Vector.hpp"
+#include "ivp/IVPMethod.hpp"
 #include <vector>
 #include <functional>
 #include <utility>
@@ -9,7 +10,7 @@
 
 namespace metII {
 
-    class SimpleStep {
+    class SimpleStep : public IVPMethod {
 
         private:
 
@@ -22,19 +23,6 @@ namespace metII {
         public:
 
             SimpleStep (std::function<metII::Vector(metII::Vector, double)> _F, metII::Vector _initial_state, double _delta, double _initial_t = 0.0);
-
-            std::function<metII::Vector(metII::Vector, double)> get_F() const;
-            const std::function<metII::Vector(metII::Vector, double)>& get_ref_F() const;
-            void set_F(std::function<metII::Vector(metII::Vector, double)> _F);
-
-            metII::Vector get_initial_state() const;
-            void set_initial_state(metII::Vector _initial_state);
-
-            double get_delta() const;
-            void set_delta(double _delta);
-
-            double get_initial_t() const;
-            void set_initial_t(double _initial_t);
 
             // Returns the state at time "final_t"
             virtual metII::Vector compute_state (double final_t) const;
