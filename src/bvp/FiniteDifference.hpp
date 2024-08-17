@@ -15,8 +15,7 @@ namespace metII {
             std::vector<double> boundaries;
             std::size_t n;
 
-            // Nota para Israel: Sinta-se livre para alterar a assinatura deste método. Eu só vou usar ele quando tu terminar de implementar.
-            metII::Vector solve_system_of_equations (metII::Matrix system);
+            metII::Vector solve_system_of_equations (metII::Matrix A, metII::Vector b);
 
         public:
 

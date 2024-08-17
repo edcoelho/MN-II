@@ -352,3 +352,34 @@ void metII::Matrix::swap_lines(int line1, int line2) {
     this->data[line2] = this->data[line1]; 
     this->data[line1] = t_vec;   
 }
+
+metII::Vector metII::LU_solver(metII::Matrix L, metII::Matrix U, metII::Vector permutation_vector, metII::Vector b) {
+    int n = L.n_size(); 
+
+    metII::Vector Pb(n);
+    for (int i = 0; i < n; ++i) {
+        Pb[i] = b[permutation_vector[i]];
+    }
+
+    // Ly = b part 
+    metII::Vector y(n); 
+    for (int i = 0; i < n; i++) {
+        double sum = Pb[i]; 
+        for (int j = i - 1; j >= 0; j--) {
+            sum -= L(i, j)*y[j]; 
+        }
+        y[i] = sum/L(i,i);  
+    }
+
+    // Ux = y part
+    metII::Vector x(n); 
+    for (int i  = n -1; i >= 0; i--) {
+        double sum = y[i]; 
+        for (int j = i + 1; j < n; j++) {
+            sum -= U(i,j)*x[j];  
+        } 
+        x[i] = sum/U(i,i); 
+    }
+
+    return x;    
+}

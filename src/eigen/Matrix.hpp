@@ -39,10 +39,14 @@ namespace metII {
             std::size_t n_size () const;
             bool has_same_size (metII::Matrix const& other) const;
             metII::Matrix transpose () const;
+
             std::pair<metII::Matrix, metII::Matrix> get_LU_pair(metII::Vector &permutation_vector) const; 
+
+            metII::Vector LU_solver(metII::Matrix L, metII::Matrix U, metII::Vector permutation_vector, metII::Vector b) const; 
         
     };
 
+    metII::Vector LU_solver(metII::Matrix L, metII::Matrix U, metII::Vector permutation_vector, metII::Vector b);
 }
 
 #endif
