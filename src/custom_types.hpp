@@ -13,6 +13,15 @@ namespace metII {
 
     enum quadrature_type { NEWTON_COTES, GAUSS_LEGENDRE };
 
+    // BVP
+
+    struct boundary {
+
+        double position;
+        double value_at;
+
+    };
+
 }
 
 #endif
