@@ -1,33 +1,9 @@
 #include "bvp/FiniteDifference.hpp"
-#include "custom_types.hpp"
+#include "utils.hpp"
 #include <iostream>
 #include <iomanip>
 #include <limits>
 #include <cmath>
-
-void print_vector (metII::Vector vector) {
-
-    for (std::size_t index = 0; index < vector.size(); index++) {
-
-        std::cout << vector[index] << std::endl;
-
-    }
-
-    std::cout << std::endl;
-
-}
-
-void print_states (std::vector<metII::Vector> states, double delta) {
-
-    for (std::size_t i = 0; i < states.size(); i++) {
-
-        std::cout << "State at time t = " << ((double) i) * delta << ": " << std::endl;
-        print_vector(states[i]);
-        std::cout << std::endl;
-
-    }
-
-}
 
 const double
     delta = 0.0001,

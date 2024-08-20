@@ -2,6 +2,8 @@
 #define MET_II_CUSTOM_TYPES_HPP
 
 #include <array>
+#include "eigen/Vector.hpp"
+#include "eigen/Matrix.hpp"
 
 namespace metII {
 
@@ -12,6 +14,15 @@ namespace metII {
     // Integration
 
     enum quadrature_type { NEWTON_COTES, GAUSS_LEGENDRE };
+
+    // Eigen
+
+    void print_vector (metII::Vector vector);
+    void print_matrix (metII::Matrix matrix);
+
+    // IVP
+
+    void print_states (std::vector<metII::Vector> states, double delta);
 
     // BVP
 

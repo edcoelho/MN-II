@@ -1,4 +1,5 @@
 #include <iostream>
+#include "utils.hpp"
 #include "eigen/Vector.hpp"
 #include "eigen/Matrix.hpp"
 #include "eigen/PowerIteration.hpp"
@@ -8,32 +9,6 @@
 #include "eigen/QR.hpp"
 #include "eigen/SVD.hpp"
 #include <cmath>
-
-void print_vector (metII::Vector vector) {
-
-    for (std::size_t index = 0; index < vector.size(); index++) {
-
-        std::cout << vector[index] << std::endl;
-
-    }
-
-}
-
-void print_matrix (metII::Matrix matrix) {
-
-    for (std::size_t row = 0; row < matrix.m_size(); row++) {
-
-        for (std::size_t column = 0; column < matrix.n_size(); column++) {
-
-            std::cout << matrix(row, column) << " ";
-
-        }
-
-        std::cout << std::endl;
-
-    }
-
-}
 
 void test_vectors () {
 

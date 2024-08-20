@@ -1,3 +1,4 @@
+#include "utils.hpp"
 #include "ivp/ExplicitEuler.hpp"
 #include "ivp/ImplicitEuler.hpp"
 #include "ivp/RungeKutta.hpp"
@@ -21,30 +22,6 @@ metII::Vector ivp_2 (metII::Vector state_vec, double t) {
     state_vec[1] = -g - (k/m)*state_vec[1];
 
     return state_vec;
-
-}
-
-void print_vector (metII::Vector vector) {
-
-    for (std::size_t index = 0; index < vector.size(); index++) {
-
-        std::cout << vector[index] << std::endl;
-
-    }
-
-    std::cout << std::endl;
-
-}
-
-void print_states (std::vector<metII::Vector> states, double delta) {
-
-    for (std::size_t i = 0; i < states.size(); i++) {
-
-        std::cout << "State at time t = " << ((double) i) * delta << ": " << std::endl;
-        print_vector(states[i]);
-        std::cout << std::endl;
-
-    }
 
 }
 

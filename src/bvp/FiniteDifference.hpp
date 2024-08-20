@@ -3,7 +3,7 @@
 
 #include "eigen/Matrix.hpp"
 #include "eigen/Vector.hpp"
-#include "custom_types.hpp"
+#include "utils.hpp"
 #include <vector>
 
 namespace metII {
