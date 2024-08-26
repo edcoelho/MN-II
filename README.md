@@ -15,6 +15,14 @@ make MAIN="src/arquivo.cpp"
 Se não for indicado o arquivo com a função main, o make irá procurar pelo arquivo padrão "src/main.cpp".
 **Obs.:** O arquivo contendo a função main **deve** estar dentro da pasta "src/".
 
+No caso de haver algum erro na compilação, experimente apagar os objetos compilados com o comando **make clean** e compile tudo de novo, como no exemplo a seguir:
+```console
+make clean
+make MAIN="src/arquivo.cpp"
+```
+
+Para gerar um executável para debugging, utilize o comando **make debug**.
+
 É possível compilar os arquivos de forma concorrente utilizando o comando **make -j** (**make -j4** para compilar 4 arquivos por vez), como no exemplo a seguir:
 ```console
 make MAIN="src/arquivo.cpp" -j4
