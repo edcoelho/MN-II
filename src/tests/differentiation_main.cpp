@@ -1,4 +1,5 @@
 #include "differentiation/CentralDerivative.hpp"
+#include "differentiation/ForwardDerivative.hpp"
 #include <iostream>
 #include <cmath>
 #include <vector>
@@ -79,15 +80,65 @@ void test_central(double x, double epsilon = 1.0e-6) {
 
 }
 
+void test_forward(double x, double epsilon = 1.0e-6) {
+
+    std::vector<std::pair<std::function<double(double)>, std::string>> functions = {
+        {f1, "f1(x) = ln(x) + x^2 - 5*x + 3"},
+        {f2, "f2(x) = exp(x) - 2*x^2 + 3*x + 1"},
+        {f3, "f3(x) = cos(x) * x^3 - 2*sin(x) + 7"},
+        {f4, "f4(x) = x^4 - 4*x^3 + 6*x^2 - 4*x + 1"}
+    };
+    std::size_t derivative_orders[] = {1, 2, 3, 4};
+    std::size_t error_orders[] = {1, 2, 3, 4, 5, 6};
+    metII::ForwardDerivative fd(f1, 1, 2, epsilon);
+
+    std::cout << "Testing functions with x = " << x << std::endl << std::endl;
+
+    std::cout << "---------------------------------" << std::endl << std::endl;
+
+    for (const auto& func : functions) {
+
+        fd.set_f(func.first);
+        std::cout << func.second << std::endl << std::endl;
+        
+        for (std::size_t derivative_order : derivative_orders) {
+            
+            fd.set_derivative_order(derivative_order);
+            std::cout << "Derivative order: " << derivative_order << std::endl << std::endl;
+
+            for (std::size_t error_order : error_orders) {
+
+                fd.set_error_order(error_order);
+                std::cout << "Error order: " << error_order << std::endl;
+
+                std::cout << "Result: " << fd.iterate(x, 1.005, false) << std::endl << std::endl;
+
+            }
+
+            std::cout << "-----" << std::endl << std::endl;
+
+        }
+
+        std::cout << "---------------------------------" << std::endl << std::endl;
+
+    }
+
+}
+
 int main() {
 
-    std::cout << std::fixed << std::setprecision(std::numeric_limits<double>::max_digits10);
+    // std::cout << std::fixed << std::setprecision(std::numeric_limits<double>::max_digits10);
 
-    double test_point = 1.0;
-    test_central(test_point);
+    double x = 1.0;
+
+    // test_central(x);
+    test_forward(x);
 
     // metII::CentralDerivative cd(f1, 4, 2);
-    // std::cout << cd.iterate(1.0, 1.01, true) << std::endl;
+    // std::cout << cd.iterate(x, 1.05, true) << std::endl;
+
+    // metII::ForwardDerivative fd(f3, 4, 1);
+    // std::cout << fd.iterate(x, 1.005, false) << std::endl;
 
     return EXIT_SUCCESS;
 
