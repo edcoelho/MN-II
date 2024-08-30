@@ -104,7 +104,7 @@ namespace metII {
 
     }
 
-    CentralDerivative::CentralDerivative (std::function<double(double)> _f, std::size_t _derivative_order, std::size_t _error_order, double _epsilon) : Derivative::Derivative(_f, _derivative_order, _error_order, _epsilon) {
+    CentralDerivative::CentralDerivative (std::function<double(double)> _f, std::size_t _derivative_order, std::size_t _error_order, double _epsilon, double _h_divider, double _initial_h, bool _check_for_invalid_iterations) : Derivative::Derivative(_f, _derivative_order, _error_order, _epsilon, _h_divider, _initial_h, _check_for_invalid_iterations) {
 
         if (_derivative_order == 0 || _derivative_order > 4) {
 

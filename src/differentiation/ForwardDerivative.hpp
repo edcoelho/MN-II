@@ -16,7 +16,7 @@ namespace metII {
 
         public:
 
-            ForwardDerivative (std::function<double(double)> _f, std::size_t _derivative_order = 1, std::size_t _error_order = 1, double _epsilon = 1.0e-6);
+            ForwardDerivative (std::function<double(double)> _f, std::size_t _derivative_order = 1, std::size_t _error_order = 1, double _epsilon = 1.0e-6, double _h_divider = 2.0, double _initial_h = 0.1, bool _check_for_invalid_iterations = false);
 
     };
 

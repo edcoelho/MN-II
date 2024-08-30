@@ -6,12 +6,15 @@
 
 namespace metII {
 
-    Derivative::Derivative (std::function<double(double)> _f, std::size_t _derivative_order, std::size_t _error_order, double _epsilon) {
+    Derivative::Derivative (std::function<double(double)> _f, std::size_t _derivative_order, std::size_t _error_order, double _epsilon, double _h_divider, double _initial_h, bool _check_for_invalid_iterations) {
 
         this->f = _f;
         this->derivative_order = _derivative_order;
         this->error_order = _error_order;
         this->epsilon = _epsilon;
+        this->h_divider = _h_divider;
+        this->initial_h = _initial_h;
+        this->check_for_invalid_iterations = _check_for_invalid_iterations;
 
     }
 
@@ -71,23 +74,62 @@ namespace metII {
 
     }
 
-    double Derivative::iterate (const double x, const double h_divider, const bool check_for_invalid_iterations, const std::size_t max_zero_iterations) const {
+    double Derivative::get_h_divider () const {
+
+        return this->h_divider;
+
+    }
+    void Derivative::set_h_divider (double _h_divider) {
+
+        if (_h_divider <= 1.0) {
+
+            throw std::runtime_error("Error in (void) metII::Derivative::set_h_divider(double): Invalid h_divider! Please ensure that h_divider is greater than 1.");
+
+        }
+
+        this->h_divider = _h_divider;
+
+    }
+
+    double Derivative::get_initial_h () const {
+
+        return this->initial_h;
+
+    }
+    void Derivative::set_initial_h (double _initial_h) {
+
+        if (_initial_h <= 0.0 || _initial_h > 1.0) {
+
+            throw std::runtime_error("Error in (void) metII::Derivative::set_initial_h(double): Invalid initial_h! Please ensure that initial_h is greater than 0 and less or equal to 1.");
+
+        }
+
+        this->initial_h = _initial_h;
+
+    }
+
+    bool Derivative::get_check_for_invalid_iterations () const {
+
+        return this->check_for_invalid_iterations;
+
+    }
+    void Derivative::set_check_for_invalid_iterations (bool _check_for_invalid_iterations) {
+
+        this->check_for_invalid_iterations = _check_for_invalid_iterations;
+
+    }
+
+    double Derivative::iterate (const double x, const std::size_t max_of_invalid_iterations) const {
 
         double
             curr_result = 0.0,
             new_result = 0.0,
             relative_error = this->get_epsilon() + 1.0,
-            h = 0.1;
-        std::size_t count_zero_iterations = 0;
+            h = this->get_initial_h();
+        std::size_t count_invalid_iterations = 0;
         bool
             continue_iteration = true,
             is_iteration_valid = true;
-
-        if (h_divider <= 1.0) {
-
-            throw std::runtime_error("Error in (double) metII::Derivative::iterate(const double, const double, bool, const std::size_t): Invalid h_divider! Please ensure that h_divider is greater than 1.");
-
-        }
 
         while (relative_error > this->get_epsilon() && continue_iteration) {
 
@@ -97,11 +139,11 @@ namespace metII {
             if (std::abs(new_result) > std::numeric_limits<double>::epsilon() && is_iteration_valid) {
 
                 relative_error = std::abs((new_result - curr_result) / new_result);
-                count_zero_iterations = 0;
+                count_invalid_iterations = 0;
 
-            } else if (count_zero_iterations < max_zero_iterations) {
+            } else if (count_invalid_iterations < max_of_invalid_iterations) {
 
-                count_zero_iterations++;
+                count_invalid_iterations++;
 
             } else {
 
@@ -110,7 +152,7 @@ namespace metII {
             }
 
             curr_result = new_result;
-            h = h / h_divider;
+            h = h / this->get_h_divider();
 
         };
 

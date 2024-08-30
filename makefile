@@ -3,7 +3,7 @@ SRC_DIR := src/
 INCLUDE_DIR := include/
 BUILD_DIR := build/
 
-CXXFLAGS := -pedantic-errors -Wall -I$(SRC_DIR) -I$(INCLUDE_DIR) -I/usr/include/opencv4/
+CXXFLAGS := -std=c++11 -pedantic-errors -Wall -I$(SRC_DIR) -I$(INCLUDE_DIR) -I/usr/include/opencv4/
 LDLIBS := -lopencv_core -lopencv_imgcodecs -lopencv_imgproc -lopencv_highgui
 
 # Arquivo main padrão.

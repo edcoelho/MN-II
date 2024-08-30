@@ -68,7 +68,7 @@ void test_derivative(double x, metII::Derivative& d, const bool is_central_formu
                 d.set_error_order(error_order);
                 std::cout << "Error order: " << error_order << std::endl;
 
-                std::cout << "Result: " << d.iterate(x, h_divider, false) << std::endl << std::endl;
+                std::cout << "Result: " << d.iterate(x) << std::endl << std::endl;
 
             }
 
@@ -85,6 +85,7 @@ void test_derivative(double x, metII::Derivative& d, const bool is_central_formu
 void test_central(double x, double epsilon = 1.0e-6) {
 
     metII::CentralDerivative cd(f1, 1, 2, epsilon);
+    cd.set_h_divider(1.05);
 
     std::cout << "---------------------------------" << std::endl;
     std::cout << "Central Differentiation Formulas" << std::endl;
@@ -98,6 +99,7 @@ void test_central(double x, double epsilon = 1.0e-6) {
 void test_forward(double x, double epsilon = 1.0e-6) {
 
     metII::ForwardDerivative fd(f1, 1, 2, epsilon);
+    fd.set_h_divider(1.005);
 
     std::cout << "---------------------------------" << std::endl;
     std::cout << "Forward Differentiation Formulas" << std::endl;
@@ -111,6 +113,7 @@ void test_forward(double x, double epsilon = 1.0e-6) {
 void test_backward(double x, double epsilon = 1.0e-6) {
 
     metII::BackwardDerivative bd(f1, 1, 2, epsilon);
+    bd.set_h_divider(1.005);
 
     std::cout << "---------------------------------" << std::endl;
     std::cout << "Backward Differentiation Formulas" << std::endl;
@@ -127,7 +130,7 @@ int main() {
 
     double x = 1.0;
 
-    test_central(x);
+    // test_central(x);
     // test_forward(x);
     // test_backward(x);
 
