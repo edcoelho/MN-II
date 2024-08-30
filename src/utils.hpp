@@ -1,6 +1,8 @@
 #ifndef MET_II_CUSTOM_TYPES_HPP
 #define MET_II_CUSTOM_TYPES_HPP
 
+#include <functional>
+#include <vector>
 #include <array>
 #include "eigen/Vector.hpp"
 #include "eigen/Matrix.hpp"
@@ -32,6 +34,8 @@ namespace metII {
         double value_at;
 
     };
+
+    typedef std::vector<std::function<double(double)>> BVP_kernel_plus;
 
 }
 
