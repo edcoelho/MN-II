@@ -78,12 +78,12 @@ void metII::FiniteDifference::set_boundaries (std::vector<metII::boundary> _boun
 
 }
 
-std::size_t metII::FiniteDifference::get_f_value () const {
+double metII::FiniteDifference::get_f_value () const {
 
     return this->f_value;
 
 }
-void metII::FiniteDifference::set_f_value (std::size_t _f_value) {
+void metII::FiniteDifference::set_f_value (double _f_value) {
 
     this->f_value = _f_value;
 

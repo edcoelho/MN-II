@@ -32,8 +32,8 @@ namespace metII {
             std::vector<metII::boundary> get_boundaries () const;
             void set_boundaries (std::vector<metII::boundary> _boundaries);
 
-            std::size_t get_f_value () const;
-            void set_f_value (std::size_t _f_value);
+            double get_f_value () const;
+            void set_f_value (double _f_value);
 
             metII::Vector compute_nodes () const;
 
