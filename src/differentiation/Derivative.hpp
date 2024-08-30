@@ -36,7 +36,7 @@ namespace metII {
             void set_epsilon (double _epsilon);
 
             virtual double derive (const double x, const double h) const final;
-            virtual double iterate (const double x, const double h_divider = 2.0, bool check_for_invalid_iterations = false, const std::size_t max_zero_iterations = 100) const final;
+            virtual double iterate (const double x, const double h_divider = 2.0, const bool check_for_invalid_iterations = false, const std::size_t max_zero_iterations = 100) const final;
 
     };
 

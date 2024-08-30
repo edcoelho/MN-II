@@ -71,13 +71,13 @@ namespace metII {
 
     }
 
-    double Derivative::iterate (const double x, const double h_divider, bool check_for_invalid_iterations, const std::size_t max_zero_iterations) const {
+    double Derivative::iterate (const double x, const double h_divider, const bool check_for_invalid_iterations, const std::size_t max_zero_iterations) const {
 
         double
             curr_result = 0.0,
             new_result = 0.0,
             relative_error = this->get_epsilon() + 1.0,
-            h = 1.0;
+            h = 0.1;
         std::size_t count_zero_iterations = 0;
         bool
             continue_iteration = true,
