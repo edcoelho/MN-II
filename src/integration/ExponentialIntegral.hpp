@@ -2,7 +2,7 @@
 #define MET_II_EXPONENTIAL_INTEGRAL_HPP_
 
 #include "integration/Integral.hpp"
-#include "custom_types.hpp"
+#include "utils.hpp"
 
 namespace metII {
 
